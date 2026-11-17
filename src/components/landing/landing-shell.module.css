@@ -1,0 +1,78 @@
+.shell {
+	position: relative;
+}
+
+.heroPin {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	height: 100svh;
+	overflow: clip;
+	will-change: opacity, transform;
+	transform-origin: center center;
+}
+
+.after {
+	position: relative;
+	z-index: 2;
+}
+
+.sectionPin {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	min-height: 100svh;
+	overflow: clip;
+	will-change: opacity, transform;
+	transform-origin: center center;
+	background-color: #f5f0e5;
+	background-image:
+		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
+		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+	background-size: 50px 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	box-shadow: 0 -24px 48px #09090914;
+}
+
+.sectionCover {
+	position: relative;
+	z-index: 2;
+	min-height: 100svh;
+	background: #090909;
+	box-shadow: 0 -28px 56px #09090933;
+	display: flex;
+	flex-direction: column;
+}
+
+.footerSlot {
+	position: relative;
+	z-index: 3;
+	background-color: #f5f0e5;
+	background-image:
+		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
+		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+	background-size: 50px 50px;
+}
+
+@media (max-width: 650px) {
+	.sectionPin {
+		background-size: 36px 36px;
+		justify-content: flex-start;
+		overflow: auto;
+	}
+
+	.footerSlot {
+		background-size: 36px 36px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.heroPin,
+	.sectionPin {
+		opacity: 1 !important;
+		transform: none !important;
+		will-change: auto;
+	}
+}

@@ -1,0 +1,109 @@
+.footer {
+	--ink: #090909;
+	--paper: #f5f0e5;
+	color: var(--ink);
+	background: transparent;
+	padding: clamp(36px, 4vw, 56px) clamp(22px, 4vw, 76px) clamp(28px, 3vw, 40px);
+	border-top: 2px solid var(--ink);
+}
+
+.inner {
+	width: 100%;
+	max-width: 1650px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1.4fr 1fr auto;
+	gap: clamp(24px, 3vw, 48px);
+	align-items: end;
+}
+
+.brand {
+	margin: 0;
+	font-family: var(--font-play), Impact, "Arial Black", sans-serif;
+	font-size: clamp(22px, 2vw, 32px);
+	line-height: 1;
+	letter-spacing: -0.03em;
+	text-transform: uppercase;
+}
+
+.meta {
+	margin: 0.55em 0 0;
+	font-family: var(--font-bank), "Arial Narrow", sans-serif;
+	font-size: clamp(12px, 0.95vw, 14px);
+	letter-spacing: 0.08em;
+}
+
+.linksBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.link {
+	font-family: var(--font-bank), "Arial Narrow", sans-serif;
+	font-size: clamp(13px, 1vw, 15px);
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.28em;
+	width: fit-content;
+}
+
+.link:hover {
+	opacity: 0.7;
+}
+
+.link:focus-visible {
+	outline: 3px solid #e4784b;
+	outline-offset: 4px;
+}
+
+.placeholders {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 18px;
+}
+
+.placeholder {
+	font-family: var(--font-bank), "Arial Narrow", sans-serif;
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	opacity: 0.38;
+}
+
+.credit {
+	margin: 0;
+	font-family: var(--font-bank), "Arial Narrow", sans-serif;
+	font-size: clamp(11px, 0.9vw, 13px);
+	letter-spacing: 0.08em;
+	text-align: right;
+}
+
+@media (max-width: 900px) {
+	.footer {
+		background-size: 36px 36px;
+		padding: 36px 22px 28px;
+	}
+
+	.inner {
+		grid-template-columns: 1fr;
+		gap: 28px;
+		align-items: start;
+	}
+
+	.credit {
+		text-align: left;
+		padding-top: 8px;
+		border-top: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+		width: 100%;
+	}
+}
+
+@media (max-width: 650px) {
+	.footer {
+		padding: 32px 18px 24px;
+	}
+}

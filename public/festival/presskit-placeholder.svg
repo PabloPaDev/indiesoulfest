@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g" x2="1" y2="1"><stop stop-color="#12232b"/><stop offset=".53" stop-color="#203e4b"/><stop offset="1" stop-color="#a15a46"/></linearGradient>
+    <pattern id="p" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#fff" stroke-opacity=".09"/></pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/><rect width="1200" height="675" fill="url(#p)"/>
+  <circle cx="915" cy="160" r="230" fill="#f0c28c" opacity=".8"/><path d="M0 480 240 330 420 445 590 265 760 440 920 340 1200 550V675H0Z" fill="#112a2d"/>
+  <path d="M0 570 290 425 480 520 700 400 945 515 1200 400V675H0Z" fill="#0b1c25"/>
+  <text x="76" y="103" font-family="Arial,sans-serif" font-size="27" letter-spacing="10" fill="#fff" opacity=".8">INDIE SOUL FEST / PREVIEW</text>
+</svg>

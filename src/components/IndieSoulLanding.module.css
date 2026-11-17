@@ -1,0 +1,292 @@
+@font-face {
+  font-family: "ISF Play Pretend";
+  src: url("/fonts/play-pretend.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "ISF Bank Gothic";
+  src: url("/fonts/bank-gothic.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "ISF Pixel Digivolve";
+  src: url("/fonts/pixel-digivolve.otf") format("opentype");
+  font-display: swap;
+}
+.page, .page * { box-sizing: border-box; }
+.page {
+  --ink: #090909;
+  --paper: #f5f0e5;
+  position: relative;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: linear-gradient(to right, #3e3b3318 1px, transparent 1px), linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+  background-size: 50px 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  overflow-x: clip;
+  padding-top: clamp(18px, 2.4vh, 28px);
+  padding-bottom: clamp(56px, 8vh, 84px);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.6vw, 44px);
+  padding: 0 clamp(22px, 4vw, 76px);
+  margin-bottom: 0;
+  flex: none;
+  white-space: nowrap;
+}
+.heroStage {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 0;
+	padding-bottom: clamp(8px, 1.5vh, 20px);
+}
+.organizers, .date, .footer {
+  font-family: "ISF Bank Gothic", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.organizers, .date { font-size: clamp(12px, 1.12vw, 18px); }
+.date { display: flex; align-items: center; gap: .7em; }
+.calendar { width: 1.45em; height: 1.45em; flex: none; }
+.organizers span { margin-inline: 12px; }
+.headerLine { flex: 1; height: 2px; background: var(--ink); opacity: .85; }
+.main {
+	width: 100%;
+	max-width: 1780px;
+	margin: 0 auto;
+	padding: 0 clamp(22px, 3.6vw, 68px);
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: column;
+	transform: translateY(clamp(-36px, -5.5vh, -22px));
+}
+.titleArea { position: relative; margin-top: 0; }
+.title {
+  font-family: "ISF Play Pretend", Impact, sans-serif;
+  font-size: clamp(85px, 14.2vw, 220px);
+  line-height: .77;
+  font-weight: 400;
+  letter-spacing: -.047em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.title span { display: block; white-space: nowrap; }
+.title span:nth-child(2) { font-size: 1.03em; margin-top: .06em; }
+.stripes {
+  position: absolute;
+  right: clamp(10px, 20vw, 340px);
+  top: clamp(14px, 2.2vw, 40px);
+  display: flex;
+  gap: .19em;
+  font-size: clamp(34px, 6.2vw, 100px);
+}
+.stripes i { display: block; width: .5em; height: .64em; background: var(--ink); transform: skew(-34deg); }
+.heroBody { display: grid; grid-template-columns: minmax(230px, .36fr) minmax(0, .64fr); gap: clamp(0px, 1vw, 18px); align-items: center; margin-top: -8px; }
+.intro { position: relative; z-index: 3; align-self: center; padding-bottom: clamp(4px, 2.8vw, 30px); }
+.tagline { border-left: 6px solid var(--ink); padding-left: clamp(16px, 1.7vw, 28px); font-size: clamp(20px, 1.8vw, 32px); font-weight: 800; line-height: 1.12; letter-spacing: -.04em; }
+.description { max-width: 300px; margin: 24px 0 44px; font-size: clamp(15px, 1.4vw, 22px); line-height: 1.38; }
+.primaryButton { border: 0; background: var(--ink); color: #fff; min-height: 72px; padding: 15px 24px; font-size: clamp(17px, 1.55vw, 25px); letter-spacing: -.02em; font-family: Arial, Helvetica, sans-serif; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; gap: 20px; cursor: pointer; box-shadow: -5px 5px 0 var(--paper), -7px 7px 0 var(--ink); transform: skew(-6deg); transition: transform 150ms ease, box-shadow 150ms ease; }
+.primaryButton > * { transform: skew(6deg); }
+.primaryButton:hover { transform: skew(-6deg) translateY(-3px); box-shadow: -5px 8px 0 var(--paper), -7px 10px 0 var(--ink); }
+.primaryButton:disabled { opacity: .75; cursor: wait; }
+.primaryButton:focus-visible, .carouselButton:focus-visible, .dot:focus-visible { outline: 3px solid #e4784b; outline-offset: 5px; }
+.consoleColumn { min-width: 0; transform: translateX(clamp(0px, 1.9vw, 26px)); }
+.consoleWrap {
+	position: relative;
+	width: min(64vw, 1200px);
+	max-width: none;
+	margin-left: clamp(-28px, -1.6vw, -8px);
+	margin-bottom: clamp(10px, 1.4vw, 22px);
+}
+.consoleVector { display: block; width: 100%; height: auto; }
+.screen { position: absolute; left: 19.69%; top: 13.28%; width: 53.85%; height: 72.84%; clip-path: polygon(8.5% 4.97%, 100% 0, 92.65% 100%, 0 96.68%); overflow: hidden; isolation: isolate; background: #121e25; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+.slideActive { opacity: 1; z-index: 1; }
+.artwork { object-fit: cover; object-position: center; }
+.screenGradient { position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, #08080880 100%); z-index: 2; pointer-events: none; }
+.gameCaption { position: absolute; z-index: 3; color: white; bottom: 7%; left: 4%; max-width: 62%; padding: .75em 1.1em .8em; background: #0d0d0de6; border-radius: 6px; pointer-events: none; }
+.gameTitle { font: 400 clamp(16px, 1.95vw, 30px)/1.04 "ISF Play Pretend", Arial, sans-serif; }
+.gameMeta { display: flex; align-items: center; justify-content: space-between; gap: 1.6em; margin-top: .5em; }
+.gameStudio { font-size: clamp(9px, .95vw, 14px); font-weight: 600; letter-spacing: .02em; }
+.demoLabel { flex: none; padding: .32em .9em; background: #e5483a; border-radius: 40px; font: 700 clamp(8px, .78vw, 12px)/1 Arial, sans-serif; letter-spacing: .04em; color: #fff; }
+/* Flechas sobre los trackpads cuadrados; puntos sobre el altavoz derecho. */
+.carouselButton {
+	z-index: 4;
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 10.4%;
+	height: 20.1%;
+	border: 0;
+	border-radius: 18%;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+	opacity: .7;
+	transition: opacity 150ms ease;
+}
+.carouselPrev { left: 8.3%; top: 42.3%; }
+.carouselNext { left: 78.5%; top: 40.5%; }
+.carouselButton:hover { opacity: 1; }
+.carouselButton:active { opacity: 1; }
+.carouselButton svg { width: 42%; height: auto; }
+.dots { position: absolute; z-index: 4; display: flex; gap: clamp(4px, .45vw, 8px); left: 84%; top: 78.5%; }
+.dot { width: clamp(7px, .7vw, 11px); height: clamp(7px, .7vw, 11px); border: 1.5px solid var(--ink); background: transparent; border-radius: 2px; padding: 0; cursor: pointer; }
+.dotActive { background: var(--ink); }
+.footer {
+	width: calc(100% - clamp(44px, 8vw, 152px));
+	max-width: 1650px;
+	margin: clamp(28px, 4.5vh, 48px) auto 0;
+	border-top: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	padding: 8px 0 0;
+	font-size: clamp(13px, 1.15vw, 17px);
+	font-weight: 400;
+	letter-spacing: .14em;
+	flex: none;
+}
+.footerSlash { margin-inline: 1.6em; }
+.footerSponsor { display: flex; align-items: center; gap: 2.6em; }
+.footerSponsor strong { font-weight: 700; }
+.footerDivider { display: block; width: 2px; height: 22px; background: var(--ink); }
+.scrollCue {
+	position: absolute;
+	left: 50%;
+	bottom: clamp(96px, 16vh, 168px);
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	color: var(--ink);
+	text-decoration: none;
+	z-index: 5;
+	max-width: min(92vw, 520px);
+	text-align: center;
+}
+.scrollCueLabel {
+	font-family: "ISF Bank Gothic", Arial, sans-serif;
+	font-size: clamp(11px, 0.95vw, 13px);
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	line-height: 1.25;
+}
+.scrollCueMark {
+	width: 10px;
+	height: 10px;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+	opacity: 0.85;
+}
+.scrollCue:hover .scrollCueLabel,
+.scrollCue:focus-visible .scrollCueLabel {
+	opacity: 0.7;
+}
+.scrollCue:focus-visible {
+	outline: 3px solid #e4784b;
+	outline-offset: 6px;
+}
+@media (prefers-reduced-motion: no-preference) {
+	.scrollCueMark {
+		animation: isf-scroll-cue 1.6s ease-in-out infinite;
+	}
+}
+@keyframes isf-scroll-cue {
+	0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.45; }
+	50% { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
+}
+@media (min-width: 1600px) { .title { font-size: 174px; } .consoleWrap { width: 1200px; } }
+@media (max-width: 900px) {
+  .header { gap: 15px; }
+  .title { font-size: clamp(70px, 11.7vw, 107px); }
+  .heroBody { grid-template-columns: minmax(190px, .39fr) minmax(0, .61fr); margin-top: 18px; }
+  .consoleColumn { transform: none; }
+  .consoleWrap { width: 100%; margin-left: 0; }
+  .tagline { font-size: clamp(18px, 2.6vw, 25px); }
+  .description { font-size: 16px; margin: 16px 0 25px; }
+  .primaryButton { min-height: 58px; font-size: 15px; padding: 13px 18px; }
+  .gameTitle { font-size: 12px; }
+  .gameCaption { max-width: 75%; }
+  .footer { flex-wrap: wrap; justify-content: center; text-align: center; }
+}
+@media (max-width: 650px) {
+  .page { background-size: 36px 36px; }
+  .header { padding: 0 18px; margin-bottom: 10px; gap: 6px; align-items: flex-start; }
+  .organizers { font-size: 10px; line-height: 1.3; }
+  .organizers span { margin-inline: 3px; }
+  .headerLine { display: none; }
+  .date { margin-left: auto; font-size: 10px; text-align: right; white-space: normal; line-height: 1.3; max-width: 135px; }
+  .main { padding: 0 15px; }
+  .titleArea { margin-top: 0; }
+  .title { font-size: clamp(49px, 11.8vw, 80px); letter-spacing: -.057em; line-height: .88; }
+  .title span:nth-child(2) { font-size: 1.01em; }
+  .stripes { font-size: 33px; top: -23px; right: 0; }
+  .heroBody { display: flex; flex-direction: column-reverse; margin-top: 12px; gap: 21px; }
+  .consoleColumn { width: 100%; transform: none; }
+  .consoleWrap { width: calc(100% - 8px); margin-left: 0; }
+  .intro { align-self: stretch; padding: 0 6px; }
+  .tagline { font-size: 26px; line-height: 1.08; }
+  .description { max-width: none; margin: 15px 0 25px; font-size: 17px; }
+  .primaryButton { width: 100%; min-height: 62px; font-size: 17px; }
+  .gameCaption { left: 8px; bottom: 10px; max-width: 72%; padding: 6px 8px 7px; border-radius: 4px; }
+  .gameTitle { font-size: 11px; }
+  .gameMeta { gap: 10px; margin-top: 3px; }
+  .gameStudio { font-size: 9px; }
+  .demoLabel { padding: 2px 6px; font-size: 8px; }
+  .carouselButton { opacity: .7; }
+  .dots { gap: 3px; }
+  .dot { width: 6px; height: 6px; }
+  .footer { width: calc(100% - 34px); padding: 8px 0 0; margin-top: 28px; font-size: 12px; flex-direction: column; gap: 8px; }
+  .footerSlash { margin-inline: .6em; }
+  .footerDivider { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.slide, .primaryButton { transition: none !important; }
+	.scrollCueMark { animation: none !important; }
+}
+
+/* Indie Soul Fest — ajuste de composición, desktop.
+   AÑADIR AL FINAL de IndieSoulLanding.module.css.
+   No cambia la consola SVG, el carrusel ni la animación. */
+
+@media (min-width: 901px) {
+	/* El titular sigue siendo enorme, pero deja espacio a la consola. */
+	.title {
+		font-size: clamp(100px, 12.6vw, 190px);
+		line-height: 0.79;
+	}
+
+	.title span:nth-child(2) {
+		margin-top: 0.045em;
+	}
+
+	/* Consola y texto comparten una misma zona de hero. */
+	.heroBody {
+		grid-template-columns: minmax(280px, 35%) minmax(0, 65%);
+		gap: 0;
+		align-items: center;
+		margin-top: -7px;
+	}
+
+	.consoleColumn {
+		transform: translateX(0);
+	}
+
+	.consoleWrap {
+		margin-left: clamp(-90px, -4.8vw, -24px);
+	}
+
+}
