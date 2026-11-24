@@ -1,0 +1,71 @@
+/* Botón aislado con estética PlayNotes (no usa tokens del festival). */
+.btn {
+	--pn-paper: #f7f2e6;
+	--pn-ink: #18181b;
+	--pn-flame: #fb923c;
+	--pn-line: rgba(24, 24, 27, 0.16);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35rem;
+	min-height: 2.75rem;
+	border: 1px solid var(--pn-line);
+	border-radius: 999px;
+	padding: 0.5rem 1rem;
+	background: var(--pn-paper);
+	color: var(--pn-ink);
+	font-family: var(--font-playnotes), system-ui, sans-serif;
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+	transition:
+		background 140ms ease,
+		border-color 140ms ease,
+		transform 140ms ease;
+}
+
+.btn:hover {
+	background: #fffef8;
+	border-color: rgba(251, 146, 60, 0.55);
+}
+
+.btn:focus-visible {
+	outline: 2px solid var(--pn-flame);
+	outline-offset: 2px;
+}
+
+.onList {
+	background: linear-gradient(135deg, #fb923c 0%, #ffae70 100%);
+	border-color: transparent;
+	color: #1c1917;
+}
+
+.onList:hover {
+	background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+	filter: none;
+}
+
+.ghostOnDark {
+	background: rgba(247, 242, 230, 0.14);
+	border-color: rgba(246, 242, 230, 0.55);
+	color: #f6f2e6;
+}
+
+.ghostOnDark:hover {
+	background: rgba(247, 242, 230, 0.22);
+}
+
+.ghostOnDark.onList {
+	background: linear-gradient(135deg, #fb923c 0%, #ffae70 100%);
+	border-color: transparent;
+	color: #1c1917;
+}
+
+.compact {
+	width: 100%;
+	min-height: 2.15rem;
+	padding: 0.35rem 0.5rem;
+	font-size: 0.72rem;
+	white-space: nowrap;
+}

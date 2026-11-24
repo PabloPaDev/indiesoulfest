@@ -1,4 +1,5 @@
 import { ScreenMotif } from "@/components/graphics/screen-motif";
+import { GameLibraryActions } from "@/components/playnotes/game-library-actions";
 import type { Game } from "@/types/game";
 
 type GameCardProps = {
@@ -26,6 +27,12 @@ export function GameCard({ game }: GameCardProps) {
 				<p className="mt-auto inline-flex w-fit border-2 border-ink px-2 py-1 font-gothic text-[0.68rem] tracking-[0.16em] uppercase">
 					{game.genre}
 				</p>
+				<GameLibraryActions
+					playnotesGameId={game.playnotesGameId}
+					igdbId={game.igdbId}
+					demoUrl={game.demoUrl}
+					demoStore={game.demoStore}
+				/>
 			</div>
 		</article>
 	);

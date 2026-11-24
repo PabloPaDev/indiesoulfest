@@ -1,7 +1,5 @@
 /**
- * Ficha pública de un juego.
- * Cuando exista la API de PlayNotes, este tipo puede crecer con slug,
- * demo jugable e interés, sin acoplar la portada a ese servicio.
+ * Ficha pública de un juego (prototipo visual + puente opcional a PlayNotes).
  */
 export const motifs = [
 	"cluster",
@@ -24,4 +22,9 @@ export type Game = {
 	demo: boolean;
 	motif: Motif;
 	provisional: boolean;
+	/** UUID `games.id` en PlayNotes cuando esté vinculado. */
+	playnotesGameId?: string | null;
+	igdbId?: number | null;
+	demoUrl?: string | null;
+	demoStore?: "steam" | "itch" | null;
 };

@@ -1,0 +1,209 @@
+.rootGrid,
+.rootExplorer {
+	min-height: 100vh;
+	overflow-x: clip;
+	background-color: #f5f0e5;
+	background-image:
+		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
+		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+	background-size: 50px 50px;
+	color: #090909;
+}
+
+/* Explorador: viewport fijo, sin scroll ni franja inferior. */
+.rootExplorer {
+	display: flex;
+	flex-direction: column;
+	height: 100svh;
+	max-height: 100svh;
+	overflow: hidden;
+	overscroll-behavior: none;
+	background-color: #121820;
+	background-image: none;
+}
+
+.mainExplorer {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: hidden;
+	background: #121820;
+}
+
+@media (max-width: 900px) {
+	.rootGrid,
+	.rootExplorer {
+		background-size: 36px 36px;
+	}
+}
+
+@media (max-width: 720px) {
+	.top {
+		gap: 0.45rem;
+	}
+
+	.topOverlay .title {
+		max-width: none;
+		font-size: clamp(1.35rem, 6.5vw, 1.75rem);
+	}
+
+	.topOverlay .lead {
+		max-width: none;
+		width: 100%;
+		font-size: 0.88rem;
+		line-height: 1.25;
+		display: block;
+		overflow: visible;
+		-webkit-line-clamp: unset;
+	}
+
+	.topOverlay .switcher {
+		margin-top: 0.35rem;
+		margin-bottom: 0.15rem;
+		flex-wrap: nowrap;
+		gap: 0.25rem;
+		padding: 0.2rem;
+	}
+
+	.switchBtn {
+		width: 2.55rem;
+		height: 2.55rem;
+		padding: 0;
+		justify-content: center;
+		gap: 0;
+	}
+
+	.switchLabel {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.icon {
+		width: 1.1rem;
+		height: 1.1rem;
+	}
+}
+
+.shell {
+	width: 100%;
+	max-width: 1200px;
+	margin-inline: auto;
+	padding: 1.25rem 1rem 0;
+}
+
+@media (min-width: 640px) {
+	.shell {
+		padding: 1.5rem 1.5rem 0;
+	}
+}
+
+.top {
+	display: grid;
+	gap: 0.75rem;
+}
+
+.kicker {
+	font-family: var(--font-gothic);
+	font-size: 0.78rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.title {
+	margin: 0;
+	max-width: 18ch;
+	font-family: var(--font-display);
+	font-size: clamp(1.85rem, 5.5vw, 3.4rem);
+	line-height: 0.84;
+	text-transform: uppercase;
+}
+
+.lead {
+	margin: 0;
+	max-width: 38rem;
+	font-family: var(--font-kalam), Kalam, cursive;
+	font-size: clamp(1.05rem, 2vw, 1.28rem);
+	line-height: 1.35;
+}
+
+.switcher {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-top: 0.2rem;
+	border: 2px solid currentColor;
+	padding: 0.25rem;
+	width: fit-content;
+	background: rgba(255, 255, 255, 0.55);
+}
+
+.switchBtn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	border: 0;
+	padding: 0.45rem 0.75rem;
+	background: transparent;
+	color: inherit;
+	font-family: var(--font-gothic);
+	font-size: 0.7rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.switchLabel {
+	display: inline;
+}
+
+.switchBtnActive {
+	background: #090909;
+	color: #f6f2e6;
+}
+
+/* Cabecera sobre el fondo del Explorador a pantalla completa. */
+.topOverlay {
+	color: #f6f2e6;
+	text-shadow: 0 2px 16px rgba(0, 0, 0, 0.72);
+}
+
+.topOverlay .title,
+.topOverlay .lead {
+	text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+}
+
+.topOverlay .switcher {
+	background: rgba(0, 0, 0, 0.35);
+}
+
+.topOverlay .switchBtnActive {
+	background: #f6f2e6;
+	color: #090909;
+	text-shadow: none;
+}
+
+.icon {
+	width: 0.95rem;
+	height: 0.95rem;
+	flex: none;
+}
+
+.catalogWrap {
+	width: 100%;
+	max-width: 1200px;
+	margin-inline: auto;
+	padding: 0 1rem 3.5rem;
+}
+
+@media (min-width: 640px) {
+	.catalogWrap {
+		padding: 0 1.5rem 4rem;
+	}
+}
+

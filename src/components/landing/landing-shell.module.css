@@ -2,29 +2,34 @@
 	position: relative;
 }
 
-.heroPin {
+/* Cada capa ocupa un viewport en el flujo y se ancla; la siguiente la tapa. */
+.layer {
 	position: sticky;
 	top: 0;
-	z-index: 1;
 	height: 100svh;
 	overflow: clip;
-	will-change: opacity, transform;
-	transform-origin: center center;
 }
 
-.after {
-	position: relative;
-	z-index: 2;
-}
-
-.sectionPin {
-	position: sticky;
-	top: 0;
+.heroLayer {
 	z-index: 1;
-	min-height: 100svh;
-	overflow: clip;
-	will-change: opacity, transform;
-	transform-origin: center center;
+	/* Misma rejilla que el hero: si queda hueco (p. ej. por zoom), no se ven cuadrados cortados. */
+	background-color: #f5f0e5;
+	background-image:
+		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
+		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+	background-size: 50px 50px;
+	display: flex;
+	flex-direction: column;
+}
+
+.heroLayer > * {
+	flex: 1 1 auto;
+	min-height: 0;
+	width: 100%;
+}
+
+.behindLayer {
+	z-index: 2;
 	background-color: #f5f0e5;
 	background-image:
 		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
@@ -33,46 +38,69 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	box-shadow: 0 -24px 48px #09090914;
+	box-shadow: 0 -1px 0 #09090912;
 }
 
-.sectionCover {
-	position: relative;
-	z-index: 2;
-	min-height: 100svh;
-	background: #090909;
-	box-shadow: 0 -28px 56px #09090933;
+.coverLayer {
+	z-index: 3;
+	background-color: #090909;
+	background-image:
+		linear-gradient(to right, rgba(245, 240, 229, 0.055) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(245, 240, 229, 0.055) 1px, transparent 1px);
+	background-size: 50px 50px;
 	display: flex;
 	flex-direction: column;
+	box-shadow: 0 -1px 0 #09090940;
 }
 
-.footerSlot {
+.coverBody {
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow: auto;
+}
+
+.footerBand {
 	position: relative;
-	z-index: 3;
-	background-color: #f5f0e5;
+	z-index: 4;
+	background-color: #090909;
 	background-image:
-		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
-		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+		linear-gradient(to right, rgba(245, 240, 229, 0.055) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(245, 240, 229, 0.055) 1px, transparent 1px);
 	background-size: 50px 50px;
 }
 
-@media (max-width: 650px) {
-	.sectionPin {
+@media (max-width: 900px) {
+	/* Mismo scroll por capas que escritorio; solo se ajusta la rejilla. */
+	.behindLayer {
 		background-size: 36px 36px;
 		justify-content: flex-start;
 		overflow: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 
-	.footerSlot {
+	.coverLayer {
+		background-size: 36px 36px;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.coverBody {
+		justify-content: flex-start;
+	}
+
+	.footerBand {
 		background-size: 36px 36px;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.heroPin,
-	.sectionPin {
-		opacity: 1 !important;
-		transform: none !important;
-		will-change: auto;
+	.layer {
+		position: relative;
+		height: auto;
+		min-height: 100svh;
+		overflow: visible;
 	}
 }

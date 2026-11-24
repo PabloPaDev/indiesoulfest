@@ -1,0 +1,81 @@
+.page {
+	min-height: 100vh;
+	overflow-x: clip;
+	/* Misma cuadrícula que la landing (IndieSoulLanding / landing-shell). */
+	background-color: #f5f0e5;
+	background-image:
+		linear-gradient(to right, #3e3b3318 1px, transparent 1px),
+		linear-gradient(to bottom, #3e3b3318 1px, transparent 1px);
+	background-size: 50px 50px;
+	color: #090909;
+}
+
+@media (max-width: 900px) {
+	.page {
+		background-size: 36px 36px;
+	}
+}
+
+.shell {
+	width: 100%;
+	max-width: 1200px;
+	margin-inline: auto;
+	padding: 2.5rem 1rem 3.5rem;
+}
+
+@media (min-width: 640px) {
+	.shell {
+		padding: 3.25rem 1.5rem 4rem;
+	}
+}
+
+.kicker {
+	font-family: var(--font-gothic);
+	font-size: 0.78rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+	.kicker {
+		font-size: 0.88rem;
+		letter-spacing: 0.2em;
+	}
+}
+
+.title {
+	margin-top: 0.75rem;
+	max-width: 18ch;
+	font-family: var(--font-display);
+	font-size: clamp(2.1rem, 7vw, 4.6rem);
+	line-height: 0.84;
+	text-transform: uppercase;
+}
+
+.lead {
+	margin-top: 1.15rem;
+	max-width: 38rem;
+	font-family: var(--font-kalam), Kalam, cursive;
+	font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+	line-height: 1.35;
+}
+
+.footer {
+	border-top: 3px solid var(--color-ink);
+	padding: 1.35rem 1rem 1.75rem;
+	text-align: center;
+	font-family: var(--font-gothic);
+	font-size: 0.7rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.footer p + p {
+	margin-top: 0.45rem;
+}
+
+.footerMeta {
+	text-transform: none;
+	letter-spacing: 0;
+	opacity: 0.7;
+}

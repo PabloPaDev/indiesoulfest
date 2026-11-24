@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { landingGames } from "../data/landingGames";
 import { forPlayPretend } from "../lib/display-text";
 import styles from "./IndieSoulLanding.module.css";
@@ -15,10 +14,35 @@ function Arrow({ direction }: { direction: "left" | "right" }) {
   );
 }
 
+/** Esquinas del hueco blanco del LCD en handheld-side-open.png (% del ancho y alto del dibujo). */
+const SCREEN_CORNERS = {
+  tl: [22.636, 14.141],
+  tr: [76.15, 10.242],
+  br: [71.46, 89.968],
+  bl: [17.59, 86.98],
+} as const;
+
+/** Proyecta el rectángulo de la pantalla (w×h) sobre el hueco del dibujo (w×h del contenedor). */
+function screenMatrix(wrapW: number, wrapH: number, w: number, h: number) {
+  const point = ([x, y]: readonly [number, number]) => [x / 100 * wrapW, y / 100 * wrapH];
+  const [x0, y0] = point(SCREEN_CORNERS.tl);
+  const [x1, y1] = point(SCREEN_CORNERS.tr).map((v, i) => v - (i ? y0 : x0));
+  const [x2, y2] = point(SCREEN_CORNERS.br).map((v, i) => v - (i ? y0 : x0));
+  const [x3, y3] = point(SCREEN_CORNERS.bl).map((v, i) => v - (i ? y0 : x0));
+  const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = -x1 + x2 - x3;
+  const dy1 = y1 - y2, dy2 = y3 - y2, dy3 = -y1 + y2 - y3;
+  const den = dx1 * dy2 - dx2 * dy1;
+  const g = (dx3 * dy2 - dx2 * dy3) / den;
+  const k = (dx1 * dy3 - dx3 * dy1) / den;
+  const a = x1 + g * x1, b = x3 + k * x3;
+  const d = y1 + g * y1, e = y3 + k * y3;
+  return `matrix3d(${[a / w, d / w, 0, g / w, b / h, e / h, 0, k / h, 0, 0, 1, 0, 0, 0, 0, 1].join(",")})`;
+}
+
 /** Dibujo de la consola. La pantalla HTML queda alineada con su abertura. */
 function ConsoleBody() {
   return (
-    <img src="/console/handheld-side.png" alt="" className={styles.consoleVector} />
+    <img src="/console/handheld-side-open.png" alt="" className={styles.consoleVector} />
   );
 }
 
@@ -29,6 +53,7 @@ export default function IndieSoulLanding() {
   const [entering, setEntering] = useState(false);
   const pageRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
+  const consoleRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement | null>(null);
   const enteringRef = useRef(false);
   const activeGame = landingGames[active];
@@ -44,6 +69,42 @@ export default function IndieSoulLanding() {
     }, 5000);
     return () => window.clearInterval(interval);
   }, [paused, entering, advance]);
+
+  // Precarga vecinos para que el carrusel no parpadee en negro.
+  useEffect(() => {
+    const indexes = [active, active + 1, active + 2, active - 1]
+      .map((i) => (i + landingGames.length) % landingGames.length);
+    const unique = [...new Set(indexes)];
+    const links: HTMLLinkElement[] = [];
+    for (const index of unique) {
+      const game = landingGames[index];
+      if (!game) continue;
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = game.cover;
+      document.head.appendChild(link);
+      links.push(link);
+    }
+    return () => {
+      for (const link of links) link.remove();
+    };
+  }, [active]);
+
+  // La pantalla sigue la perspectiva exacta del hueco del dibujo a cualquier tamaño.
+  useEffect(() => {
+    const wrap = consoleRef.current;
+    const screen = screenRef.current;
+    if (!wrap || !screen) return;
+    const fit = () => {
+      if (!wrap.offsetWidth || !screen.offsetWidth) return;
+      screen.style.transform = screenMatrix(wrap.offsetWidth, wrap.offsetHeight, screen.offsetWidth, screen.offsetHeight);
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(wrap);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const page = pageRef.current;
@@ -94,7 +155,7 @@ export default function IndieSoulLanding() {
     veil.style.cssText = "position:fixed;inset:0;z-index:2147483647;background:#f6f2e6;opacity:0;transition:opacity 300ms ease;pointer-events:none";
     document.body.appendChild(veil);
     veilRef.current = veil;
-    window.setTimeout(() => { veil.style.opacity = "1"; }, 800);
+    window.setTimeout(() => { veil.style.opacity = "1"; }, 520);
     window.setTimeout(() => router.push("/festival"), 1100);
   };
 
@@ -139,6 +200,7 @@ export default function IndieSoulLanding() {
 
             <div className={styles.consoleColumn}>
               <div
+                ref={consoleRef}
                 className={styles.consoleWrap}
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
@@ -147,41 +209,99 @@ export default function IndieSoulLanding() {
               >
                 <ConsoleBody />
                 <div className={styles.screen} ref={screenRef}>
-                  {landingGames.map((game, index) => (
-                    <div key={game.id} className={`${styles.slide} ${index === active ? styles.slideActive : ""}`} aria-hidden={index !== active}>
-                      <Image src={game.image} alt="" fill sizes="(max-width: 760px) 80vw, 48vw" priority={index === 0} className={styles.artwork} />
-                    </div>
-                  ))}
+                  {landingGames.map((game, index) => {
+                    const isActive = index === active;
+                    const prev = (active - 1 + landingGames.length) % landingGames.length;
+                    const next = (active + 1) % landingGames.length;
+                    const keepMounted = isActive || index === prev || index === next;
+                    if (!keepMounted) return null;
+                    const eager = isActive || index === 0 || index === prev || index === next;
+                    return (
+                      <div key={game.id} className={`${styles.slide} ${isActive ? styles.slideActive : ""}`} aria-hidden={!isActive}>
+                        <img
+                          src={game.cover}
+                          alt=""
+                          className={styles.capsule}
+                          style={{ objectPosition: game.coverPosition }}
+                          width={616}
+                          height={353}
+                          loading={eager ? "eager" : "lazy"}
+                          decoding="async"
+                          fetchPriority={isActive || index === 0 ? "high" : "auto"}
+                        />
+                      </div>
+                    );
+                  })}
                   <div className={styles.screenGradient} aria-hidden="true" />
                   <div className={styles.gameCaption}>
                     <div className={styles.gameTitle} aria-label={activeGame.title}>{forPlayPretend(activeGame.title)}</div>
                     <div className={styles.gameMeta}>
                       <span className={styles.gameStudio}>{activeGame.studio}</span>
-                      {activeGame.demo && <span className={styles.demoLabel}>DEMO</span>}
+                      {activeGame.demo ? <span className={styles.demoLabel}>DEMO</span> : null}
                     </div>
                   </div>
                 </div>
                 {landingGames.length > 1 && <>
                   <button aria-label="Juego anterior" className={`${styles.carouselButton} ${styles.carouselPrev}`} onClick={() => advance(-1)}><Arrow direction="left" /></button>
                   <button aria-label="Siguiente juego" className={`${styles.carouselButton} ${styles.carouselNext}`} onClick={() => advance(1)}><Arrow direction="right" /></button>
-                  <div className={styles.dots} aria-label="Juegos del carrusel">
-                    {landingGames.map((game, i) => (
-                      <button key={game.id} className={`${styles.dot} ${i === active ? styles.dotActive : ""}`} aria-label={`Mostrar ${game.title}`} aria-current={i === active ? "true" : undefined} onClick={() => setActive(i)} />
-                    ))}
-                  </div>
+                  <p className={styles.slideCount} aria-live="polite">
+                    {active + 1}/{landingGames.length}
+                  </p>
                 </>}
               </div>
             </div>
+
+            <div className={styles.closing}>
+              <aside className={styles.playnocito} aria-label="Mensaje de Playnocito">
+                <div className={styles.speechBubble}>
+                  <p className={`${styles.speechText} ${styles.speechDesktop}`}>
+                    ¡Hola! Soy Playnocito. Dentro del festival puedes apuntar lo que te guste
+                    y llevarte ese registro a{" "}
+                    <a
+                      href="https://www.playnotes.es"
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.speechLink}
+                    >
+                      playnotes.es
+                    </a>
+                    .
+                  </p>
+                  <p className={`${styles.speechText} ${styles.speechMobile}`}>
+                    Guarda lo que te guste y llévatelo a{" "}
+                    <a
+                      href="https://www.playnotes.es"
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.speechLink}
+                    >
+                      playnotes.es
+                    </a>
+                    .
+                  </p>
+                </div>
+                <div className={styles.playnocitoFigure}>
+                  <img
+                    className={styles.playnocitoImg}
+                    src="/mascots/playnocito.png"
+                    alt="Playnocito, mascota de PlayNotes"
+                    width={220}
+                    height={220}
+                    decoding="async"
+                  />
+                  <span className={styles.playnocitoName}>Playnocito</span>
+                </div>
+              </aside>
+              <footer className={styles.footer}>
+                <span>{landingGames.length} JUEGOS <span className={styles.footerSlash}>/</span> SIN IA GENERATIVA</span>
+                <span className={styles.footerSponsor}>
+                  <span className={styles.footerDivider} aria-hidden="true" />
+                  <span>PATROCINADO POR: <strong>GAMES 4 PLAYERS</strong></span>
+                </span>
+              </footer>
+            </div>
           </section>
         </main>
-
-        <footer className={styles.footer}>
-          <span>DEMOS DE MÁS DE 25 ESTUDIOS <span className={styles.footerSlash}>/</span> SIN IA GENERATIVA</span>
-          <span className={styles.footerSponsor}>
-            <span className={styles.footerDivider} aria-hidden="true" />
-            <span>PATROCINADO POR: <strong>GAMES 4 PLAYERS</strong></span>
-          </span>
-        </footer>
       </div>
 
       <a href="#behind-title" className={styles.scrollCue}>

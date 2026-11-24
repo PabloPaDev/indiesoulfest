@@ -8,6 +8,7 @@
 	--font-display: var(--font-play), Impact, "Arial Black", sans-serif;
 	--font-gothic: var(--font-bank), "Arial Narrow", sans-serif;
 	--font-pixel: var(--font-pixel-face), "Courier New", monospace;
+	--font-review: var(--font-kalam), Kalam, cursive;
 }
 
 html {
@@ -16,23 +17,6 @@ html {
 	overflow-x: clip;
 	scrollbar-width: thin;
 	scrollbar-color: #090909 #f5f0e5;
-}
-
-html.isf-hero-snap {
-	scroll-snap-type: y proximity;
-}
-
-/* Solo las paradas principales: evita el “lanzamiento” al final. */
-html.isf-hero-snap .isf-hero-pin,
-html.isf-hero-snap .isf-section-pin {
-	scroll-snap-align: start;
-	scroll-snap-stop: always;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	html.isf-hero-snap {
-		scroll-snap-type: none;
-	}
 }
 
 body {
@@ -83,6 +67,10 @@ body {
 
 .font-text {
 	font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.font-review {
+	font-family: var(--font-kalam), Kalam, cursive;
 }
 
 .font-pixel {

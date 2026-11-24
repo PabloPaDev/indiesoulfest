@@ -75,7 +75,7 @@
   font-size: clamp(85px, 14.2vw, 220px);
   line-height: .77;
   font-weight: 400;
-  letter-spacing: -.047em;
+  letter-spacing: 0.02em;
   margin: 0;
   text-transform: uppercase;
 }
@@ -90,10 +90,103 @@
   font-size: clamp(34px, 6.2vw, 100px);
 }
 .stripes i { display: block; width: .5em; height: .64em; background: var(--ink); transform: skew(-34deg); }
-.heroBody { display: grid; grid-template-columns: minmax(230px, .36fr) minmax(0, .64fr); gap: clamp(0px, 1vw, 18px); align-items: center; margin-top: -8px; }
+.heroBody {
+	display: grid;
+	grid-template-columns: minmax(230px, .36fr) minmax(0, .64fr);
+	gap: clamp(0px, 1vw, 18px);
+	align-items: center;
+	margin-top: -8px;
+}
 .intro { position: relative; z-index: 3; align-self: center; padding-bottom: clamp(4px, 2.8vw, 30px); }
 .tagline { border-left: 6px solid var(--ink); padding-left: clamp(16px, 1.7vw, 28px); font-size: clamp(20px, 1.8vw, 32px); font-weight: 800; line-height: 1.12; letter-spacing: -.04em; }
-.description { max-width: 300px; margin: 24px 0 44px; font-size: clamp(15px, 1.4vw, 22px); line-height: 1.38; }
+.description {
+	max-width: 300px;
+	margin: 24px 0 44px;
+	font-family: var(--font-kalam), Kalam, cursive;
+	font-size: clamp(15px, 1.4vw, 22px);
+	font-weight: 400;
+	line-height: 1.42;
+	letter-spacing: 0.02em;
+}
+.closing {
+	grid-column: 1 / -1;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: clamp(16px, 2vw, 28px);
+	margin-top: clamp(8px, 1.5vh, 18px);
+}
+.playnocito {
+	display: flex;
+	align-items: flex-end;
+	gap: clamp(8px, 1vw, 14px);
+	margin-top: 0;
+	max-width: 420px;
+	order: 2;
+}
+.speechBubble {
+	position: relative;
+	flex: 1 1 auto;
+	min-width: 0;
+	border: 2.5px solid var(--ink);
+	background: #fffef8;
+	border-radius: 18px 18px 18px 6px;
+	padding: 12px 14px 13px;
+	box-shadow: 3px 3px 0 var(--ink);
+}
+.speechBubble::after {
+	content: "";
+	position: absolute;
+	right: -10px;
+	bottom: 22px;
+	width: 14px;
+	height: 14px;
+	border-right: 2.5px solid var(--ink);
+	border-bottom: 2.5px solid var(--ink);
+	background: #fffef8;
+	transform: rotate(-45deg);
+}
+.speechText {
+	margin: 0;
+	font-family: var(--font-kalam), Kalam, cursive;
+	font-size: clamp(13px, 1.1vw, 16px);
+	line-height: 1.35;
+	letter-spacing: 0.01em;
+}
+.speechDesktop { display: block; }
+.speechMobile { display: none; }
+.speechLink {
+	color: inherit;
+	font-weight: 700;
+	text-underline-offset: 3px;
+}
+.playnocitoFigure {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	flex: 0 0 auto;
+}
+.playnocitoImg {
+	display: block;
+	width: clamp(110px, 12vw, 168px);
+	height: auto;
+	filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.18));
+	transform-origin: bottom center;
+	animation: playnocito-bob 2.8s ease-in-out infinite;
+}
+.playnocitoName {
+	font-family: "ISF Bank Gothic", Arial, sans-serif;
+	font-size: 0.62rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+@keyframes playnocito-bob {
+	0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+	50% { transform: translateY(-5px) rotate(1.5deg); }
+}
 .primaryButton { border: 0; background: var(--ink); color: #fff; min-height: 72px; padding: 15px 24px; font-size: clamp(17px, 1.55vw, 25px); letter-spacing: -.02em; font-family: Arial, Helvetica, sans-serif; font-weight: 850; display: inline-flex; align-items: center; justify-content: center; gap: 20px; cursor: pointer; box-shadow: -5px 5px 0 var(--paper), -7px 7px 0 var(--ink); transform: skew(-6deg); transition: transform 150ms ease, box-shadow 150ms ease; }
 .primaryButton > * { transform: skew(6deg); }
 .primaryButton:hover { transform: skew(-6deg) translateY(-3px); box-shadow: -5px 8px 0 var(--paper), -7px 10px 0 var(--ink); }
@@ -108,12 +201,64 @@
 	margin-bottom: clamp(10px, 1.4vw, 22px);
 }
 .consoleVector { display: block; width: 100%; height: auto; }
-.screen { position: absolute; left: 19.69%; top: 13.28%; width: 53.85%; height: 72.84%; clip-path: polygon(8.5% 4.97%, 100% 0, 92.65% 100%, 0 96.68%); overflow: hidden; isolation: isolate; background: #121e25; }
-.slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
-.slideActive { opacity: 1; z-index: 1; }
-.artwork { object-fit: cover; object-position: center; }
-.screenGradient { position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, #08080880 100%); z-index: 2; pointer-events: none; }
-.gameCaption { position: absolute; z-index: 3; color: white; bottom: 7%; left: 4%; max-width: 62%; padding: .75em 1.1em .8em; background: #0d0d0de6; border-radius: 6px; pointer-events: none; }
+/* Medidas medias del hueco blanco del LCD (≈514×380 sobre 960×497); el JS la proyecta
+   con matrix3d sobre sus cuatro esquinas exactas, desde la esquina superior izquierda. */
+.screen {
+	position: absolute;
+	left: 22.636%;
+	top: 14.141%;
+	width: 53.5%;
+	height: 76.5%;
+	transform-origin: 0 0;
+	border-radius: 1.8% / 2.4%;
+	overflow: hidden;
+	isolation: isolate;
+	background: #10161f;
+}
+.slide {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	transition: opacity .55s ease;
+	pointer-events: none;
+	overflow: hidden;
+}
+.slideActive {
+	opacity: 1;
+	z-index: 1;
+}
+/* Cápsula a pantalla completa; el encuadre por juego llega como object-position inline. */
+.capsule {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+.screenGradient {
+	position: absolute;
+	inset: 62% 0 0;
+	z-index: 2;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.62) 100%);
+	pointer-events: none;
+}
+.gameCaption {
+	position: absolute;
+	z-index: 3;
+	color: white;
+	bottom: 7%;
+	left: 5%;
+	right: 12%;
+	max-width: none;
+	padding: 0;
+	background: transparent;
+	border-radius: 0;
+	pointer-events: none;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 0, 0, 0.45);
+}
 .gameTitle { font: 400 clamp(16px, 1.95vw, 30px)/1.04 "ISF Play Pretend", Arial, sans-serif; }
 .gameMeta { display: flex; align-items: center; justify-content: space-between; gap: 1.6em; margin-top: .5em; }
 .gameStudio { font-size: clamp(9px, .95vw, 14px); font-weight: 600; letter-spacing: .02em; }
@@ -139,32 +284,46 @@
 .carouselButton:hover { opacity: 1; }
 .carouselButton:active { opacity: 1; }
 .carouselButton svg { width: 42%; height: auto; }
+.slideCount {
+	position: absolute;
+	z-index: 4;
+	left: 78%;
+	top: 78%;
+	margin: 0;
+	padding: 0.2em 0.45em;
+	border: 1.5px solid var(--ink);
+	background: var(--paper);
+	font: 700 clamp(8px, 0.72vw, 11px)/1 Arial, Helvetica, sans-serif;
+	letter-spacing: 0.04em;
+	color: var(--ink);
+	pointer-events: none;
+}
 .dots { position: absolute; z-index: 4; display: flex; gap: clamp(4px, .45vw, 8px); left: 84%; top: 78.5%; }
 .dot { width: clamp(7px, .7vw, 11px); height: clamp(7px, .7vw, 11px); border: 1.5px solid var(--ink); background: transparent; border-radius: 2px; padding: 0; cursor: pointer; }
 .dotActive { background: var(--ink); }
 .footer {
-	width: calc(100% - clamp(44px, 8vw, 152px));
-	max-width: 1650px;
-	margin: clamp(28px, 4.5vh, 48px) auto 0;
+	flex: 1 1 auto;
+	min-width: min(100%, 280px);
+	margin: 0;
 	border-top: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 20px;
-	padding: 8px 0 0;
-	font-size: clamp(13px, 1.15vw, 17px);
+	padding: 0;
+	font-size: clamp(16px, 1.55vw, 22px);
 	font-weight: 400;
 	letter-spacing: .14em;
-	flex: none;
+	order: 1;
 }
 .footerSlash { margin-inline: 1.6em; }
 .footerSponsor { display: flex; align-items: center; gap: 2.6em; }
 .footerSponsor strong { font-weight: 700; }
-.footerDivider { display: block; width: 2px; height: 22px; background: var(--ink); }
+.footerDivider { display: block; width: 2px; height: 1.35em; background: var(--ink); }
 .scrollCue {
 	position: absolute;
 	left: 50%;
-	bottom: clamp(96px, 16vh, 168px);
+	bottom: clamp(14px, 2.2vh, 28px);
 	transform: translateX(-50%);
 	display: flex;
 	flex-direction: column;
@@ -210,52 +369,282 @@
 }
 @media (min-width: 1600px) { .title { font-size: 174px; } .consoleWrap { width: 1200px; } }
 @media (max-width: 900px) {
-  .header { gap: 15px; }
-  .title { font-size: clamp(70px, 11.7vw, 107px); }
-  .heroBody { grid-template-columns: minmax(190px, .39fr) minmax(0, .61fr); margin-top: 18px; }
-  .consoleColumn { transform: none; }
-  .consoleWrap { width: 100%; margin-left: 0; }
-  .tagline { font-size: clamp(18px, 2.6vw, 25px); }
-  .description { font-size: 16px; margin: 16px 0 25px; }
-  .primaryButton { min-height: 58px; font-size: 15px; padding: 13px 18px; }
-  .gameTitle { font-size: 12px; }
-  .gameCaption { max-width: 75%; }
-  .footer { flex-wrap: wrap; justify-content: center; text-align: center; }
+	.page {
+		min-height: 100%;
+		height: 100%;
+		padding-top: 22px;
+		padding-bottom: 28px;
+		justify-content: flex-start;
+		overflow-x: clip;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+	.heroStage {
+		justify-content: flex-start;
+		flex: 1 1 auto;
+	}
+	.main {
+		transform: none;
+		padding-top: 10px;
+	}
+	.header { gap: 15px; margin-bottom: 8px; }
+	.title { font-size: clamp(56px, 10vw, 96px); line-height: 0.86; }
+	.heroBody {
+		display: flex;
+		flex-direction: column;
+		margin-top: 18px;
+		gap: 14px;
+	}
+	.intro {
+		display: contents;
+	}
+	.tagline {
+		order: 1;
+		font-size: clamp(18px, 2.6vw, 25px);
+	}
+	.description {
+		order: 2;
+		font-size: 16px;
+		margin: 0;
+		max-width: 42ch;
+	}
+	.consoleColumn {
+		order: 3;
+		width: 100%;
+		transform: none;
+	}
+	.consoleWrap {
+		width: min(100%, 720px);
+		margin-left: 0;
+		margin-inline: auto;
+	}
+	.primaryButton {
+		order: 4;
+		width: 100%;
+		max-width: 420px;
+		min-height: 56px;
+		font-size: 15px;
+		padding: 13px 18px;
+		margin-inline: auto;
+	}
+	.closing {
+		order: 5;
+		display: block;
+		margin-top: 6px;
+		overflow: hidden;
+	}
+	.playnocito {
+		order: 0;
+		float: right;
+		max-width: 140px;
+		margin: 0 0 4px 12px;
+		flex-direction: column-reverse;
+		align-items: center;
+		gap: 6px;
+		shape-outside: margin-box;
+	}
+	.playnocitoImg { width: 84px; }
+	.footer {
+		order: 0;
+		display: block;
+		width: auto;
+		margin: 0;
+		padding: 4px 0 0;
+		font-size: 13px;
+		letter-spacing: 0.1em;
+		line-height: 1.5;
+		text-align: left;
+	}
+	.footerSponsor {
+		display: block;
+		margin-top: 4px;
+		gap: 0;
+	}
+	.footerDivider {
+		display: none;
+	}
+	.scrollCue {
+		position: absolute;
+		left: 50%;
+		bottom: 12px;
+		transform: translateX(-50%);
+		margin: 0;
+	}
+	.gameTitle { font-size: 12px; }
+	.gameCaption { max-width: 75%; }
 }
 @media (max-width: 650px) {
-  .page { background-size: 36px 36px; }
-  .header { padding: 0 18px; margin-bottom: 10px; gap: 6px; align-items: flex-start; }
-  .organizers { font-size: 10px; line-height: 1.3; }
-  .organizers span { margin-inline: 3px; }
-  .headerLine { display: none; }
-  .date { margin-left: auto; font-size: 10px; text-align: right; white-space: normal; line-height: 1.3; max-width: 135px; }
-  .main { padding: 0 15px; }
-  .titleArea { margin-top: 0; }
-  .title { font-size: clamp(49px, 11.8vw, 80px); letter-spacing: -.057em; line-height: .88; }
-  .title span:nth-child(2) { font-size: 1.01em; }
-  .stripes { font-size: 33px; top: -23px; right: 0; }
-  .heroBody { display: flex; flex-direction: column-reverse; margin-top: 12px; gap: 21px; }
-  .consoleColumn { width: 100%; transform: none; }
-  .consoleWrap { width: calc(100% - 8px); margin-left: 0; }
-  .intro { align-self: stretch; padding: 0 6px; }
-  .tagline { font-size: 26px; line-height: 1.08; }
-  .description { max-width: none; margin: 15px 0 25px; font-size: 17px; }
-  .primaryButton { width: 100%; min-height: 62px; font-size: 17px; }
-  .gameCaption { left: 8px; bottom: 10px; max-width: 72%; padding: 6px 8px 7px; border-radius: 4px; }
-  .gameTitle { font-size: 11px; }
-  .gameMeta { gap: 10px; margin-top: 3px; }
-  .gameStudio { font-size: 9px; }
-  .demoLabel { padding: 2px 6px; font-size: 8px; }
-  .carouselButton { opacity: .7; }
-  .dots { gap: 3px; }
-  .dot { width: 6px; height: 6px; }
-  .footer { width: calc(100% - 34px); padding: 8px 0 0; margin-top: 28px; font-size: 12px; flex-direction: column; gap: 8px; }
-  .footerSlash { margin-inline: .6em; }
-  .footerDivider { display: none; }
+	/* Flujo móvil: marca → mensaje → consola → CTA; PlayNotes en esquina */
+	.page {
+		background-size: 36px 36px;
+		min-height: 100%;
+		height: 100%;
+		padding-top: 28px;
+		padding-bottom: 24px;
+		justify-content: flex-start;
+	}
+	.heroStage {
+		justify-content: flex-start;
+		padding-bottom: 0;
+		min-height: 0;
+	}
+	.header {
+		padding: 0 16px;
+		margin-bottom: 14px;
+		gap: 8px;
+		align-items: center;
+	}
+	.organizers { font-size: 10px; line-height: 1.25; }
+	.organizers span { margin-inline: 3px; }
+	.headerLine { display: none; }
+	.date {
+		margin-left: auto;
+		font-size: 10px;
+		text-align: right;
+		white-space: nowrap;
+		line-height: 1.2;
+		max-width: none;
+	}
+	.main {
+		padding: 8px 16px 0;
+		transform: none;
+	}
+	.titleArea { margin-top: 6px; margin-bottom: 8px; }
+	.title {
+		font-size: clamp(42px, 11vw, 58px);
+		letter-spacing: 0.01em;
+		line-height: 0.86;
+	}
+	.title span:nth-child(2) { font-size: 1.01em; margin-top: 0.04em; }
+	.stripes {
+		font-size: 22px;
+		top: -8px;
+		right: 0;
+		gap: 0.14em;
+	}
+	.heroBody {
+		display: flex;
+		flex-direction: column;
+		margin-top: 16px;
+		gap: 14px;
+	}
+	.intro {
+		display: contents;
+	}
+	.tagline {
+		order: 1;
+		font-size: clamp(20px, 5.6vw, 24px);
+		line-height: 1.12;
+		border-left-width: 4px;
+		padding-left: 12px;
+	}
+	.description {
+		order: 2;
+		max-width: none;
+		margin: 0;
+		font-size: 15px;
+		line-height: 1.35;
+	}
+	.consoleColumn {
+		order: 3;
+		width: 100%;
+		transform: none;
+		margin-top: 2px;
+	}
+	.consoleWrap {
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+	.primaryButton {
+		order: 4;
+		width: 100%;
+		min-height: 54px;
+		font-size: 15px;
+		padding: 12px 16px;
+		gap: 12px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	.closing {
+		order: 5;
+		display: block;
+		margin-top: 2px;
+		overflow: hidden;
+	}
+	.playnocito {
+		float: right;
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: center;
+		gap: 4px;
+		max-width: 124px;
+		margin: -6px 0 2px 10px;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		shape-outside: margin-box;
+	}
+	.speechBubble {
+		flex: 0 1 auto;
+		width: 100%;
+		min-width: 0;
+		border: 1.5px solid var(--ink);
+		background: #fffef8;
+		border-radius: 12px 12px 4px 12px;
+		padding: 6px 7px;
+		box-shadow: 2px 2px 0 var(--ink);
+	}
+	.speechBubble::after { display: none; }
+	.speechDesktop { display: none; }
+	.speechMobile { display: block; }
+	.speechText { font-size: 11px; line-height: 1.25; text-align: center; }
+	.playnocitoFigure { gap: 1px; }
+	.playnocitoImg {
+		width: 70px;
+		animation: none;
+		filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.18));
+	}
+	.playnocitoName { font-size: 0.5rem; }
+	.footer {
+		display: block;
+		width: auto;
+		margin: 0;
+		padding: 6px 0 0;
+		font-size: 11px;
+		letter-spacing: 0.08em;
+		line-height: 1.5;
+		text-align: left;
+	}
+	.footer > span {
+		display: block;
+	}
+	.footerSlash { margin-inline: 0.45em; }
+	.footerDivider { display: none; }
+	.footerSponsor {
+		display: block;
+		margin-top: 4px;
+		gap: 0;
+	}
+	.scrollCue {
+		bottom: 10px;
+		gap: 6px;
+	}
+	.scrollCueLabel {
+		font-size: 10px;
+		letter-spacing: 0.12em;
+	}
+	.gameCaption { left: 8px; bottom: 10px; max-width: 72%; }
+	.gameTitle { font-size: 11px; }
+	.gameMeta { gap: 10px; margin-top: 3px; }
+	.gameStudio { font-size: 9px; }
+	.demoLabel { padding: 2px 6px; font-size: 8px; }
+	.carouselButton { opacity: 0.75; }
 }
 @media (prefers-reduced-motion: reduce) {
 	.slide, .primaryButton { transition: none !important; }
 	.scrollCueMark { animation: none !important; }
+	.playnocitoImg { animation: none !important; }
 }
 
 /* Indie Soul Fest — ajuste de composición, desktop.
@@ -263,6 +652,17 @@
    No cambia la consola SVG, el carrusel ni la animación. */
 
 @media (min-width: 901px) {
+	/*
+	  La composición de escritorio se diseña al “90%” visual:
+	  en zoom del navegador al 100% debe verse como la captura de referencia.
+	  min-height compensa el zoom para que la rejilla llene el viewport
+	  y no queden cuadrados cortados en el borde inferior.
+	*/
+	.page {
+		zoom: 0.9;
+		min-height: calc(100svh / 0.9);
+	}
+
 	/* El titular sigue siendo enorme, pero deja espacio a la consola. */
 	.title {
 		font-size: clamp(100px, 12.6vw, 190px);
@@ -276,13 +676,41 @@
 	/* Consola y texto comparten una misma zona de hero. */
 	.heroBody {
 		grid-template-columns: minmax(280px, 35%) minmax(0, 65%);
+		grid-template-rows: auto auto;
 		gap: 0;
 		align-items: center;
 		margin-top: -7px;
 	}
 
+	.intro {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
 	.consoleColumn {
+		grid-column: 2;
+		grid-row: 1 / 3;
+		align-self: center;
 		transform: translateX(0);
+	}
+
+	.closing {
+		grid-column: 1;
+		grid-row: 2;
+		flex-direction: column;
+		align-items: flex-start;
+		margin-top: 18px;
+	}
+
+	.playnocito {
+		order: 0;
+		margin-top: 0;
+	}
+
+	.footer {
+		order: 0;
+		width: 100%;
+		margin-top: 18px;
 	}
 
 	.consoleWrap {

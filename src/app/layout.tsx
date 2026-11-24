@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
 import { TransitionProvider } from "@/components/transition/transition-provider";
 import { siteConfig } from "@/config/site";
-import { bankGothic, pixelDigivolve, playPretend } from "@/lib/fonts";
+import {
+	bankGothic,
+	kalam,
+	pixelDigivolve,
+	playPretend,
+	playnotesLexend,
+} from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	metadataBase: new URL(`https://${siteConfig.publicDomain}`),
+	metadataBase: new URL(
+		process.env.NEXT_PUBLIC_CATALOG_ORIGIN?.trim() ||
+			`https://${siteConfig.catalogDomain}`,
+	),
 	title: {
 		default: "Indie Soul Fest 2026",
 		template: "%s · Indie Soul Fest 2026",
@@ -51,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 	return (
 		<html
 			lang="es"
-			className={`${playPretend.variable} ${bankGothic.variable} ${pixelDigivolve.variable} h-full antialiased`}
+			className={`${playPretend.variable} ${bankGothic.variable} ${pixelDigivolve.variable} ${kalam.variable} ${playnotesLexend.variable} h-full antialiased`}
 		>
 			<body className="min-h-full">
 				<TransitionProvider>{children}</TransitionProvider>

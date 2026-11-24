@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "@/components/landing/reveal";
 import { forPlayPretend } from "@/lib/display-text";
 import styles from "./behind-the-festival.module.css";
@@ -43,13 +44,35 @@ export function BehindTheFestival() {
 			<div className={styles.inner}>
 				<Reveal>
 					<header className={styles.header}>
-						<h2 id="behind-title" className={styles.title} aria-label={sectionTitle}>
-							{forPlayPretend(sectionTitle)}
-						</h2>
-						<p className={styles.subtitle}>
-							Unimos divulgación, comunidad y tecnología para dar visibilidad a videojuegos que merecen ser descubiertos.
-						</p>
-						<div className={styles.rule} aria-hidden="true" />
+						<div className={styles.headerCopy}>
+							<h2 id="behind-title" className={styles.title} aria-label={sectionTitle}>
+								{forPlayPretend(sectionTitle)}
+							</h2>
+							<div className={styles.mascots} aria-hidden="true">
+								<Image
+									src="/mascots/beanie.png"
+									alt=""
+									width={600}
+									height={600}
+									className={`${styles.mascot} ${styles.mascotBeanie}`}
+									sizes="(max-width: 900px) 96px, 380px"
+									priority={false}
+								/>
+								<Image
+									src="/mascots/onion-knight.png"
+									alt=""
+									width={600}
+									height={600}
+									className={`${styles.mascot} ${styles.mascotKnight}`}
+									sizes="(max-width: 900px) 104px, 420px"
+									priority={false}
+								/>
+							</div>
+							<p className={styles.subtitle}>
+								Unimos divulgación, comunidad y tecnología para dar visibilidad a videojuegos que merecen ser descubiertos.
+							</p>
+							<div className={styles.rule} aria-hidden="true" />
+						</div>
 					</header>
 				</Reveal>
 

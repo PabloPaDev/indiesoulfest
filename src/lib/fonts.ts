@@ -1,4 +1,13 @@
+import { Kalam, Lexend } from "next/font/google";
 import localFont from "next/font/local";
+
+/** Lexend: tipografía de interfaz de PlayNotes (widget aislado). */
+export const playnotesLexend = Lexend({
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
+	variable: "--font-playnotes",
+	display: "swap",
+});
 
 /** Play Pretend: título, subtítulo de estudios y rótulos de display. */
 export const playPretend = localFont({
@@ -25,4 +34,12 @@ export const pixelDigivolve = localFont({
 	display: "swap",
 	weight: "400",
 	adjustFontFallback: false,
+});
+
+/** Kalam: misma tipografía manuscrita que el texto de reseñas en PlayNotes. */
+export const kalam = Kalam({
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-kalam",
+	display: "swap",
 });
