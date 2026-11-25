@@ -43,6 +43,8 @@
 
 	.topOverlay .title {
 		max-width: none;
+		min-height: 2.9rem;
+		padding-right: 6.6rem;
 		font-size: clamp(1.35rem, 6.5vw, 1.75rem);
 	}
 
@@ -62,6 +64,11 @@
 		flex-wrap: nowrap;
 		gap: 0.25rem;
 		padding: 0.2rem;
+	}
+
+	.topOverlay .switcherCorner {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 
 	.switchBtn {
@@ -178,8 +185,18 @@
 	text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
 }
 
+.topOverlay .lead {
+	max-width: none;
+	width: 100%;
+}
+
 .topOverlay .switcher {
 	background: rgba(0, 0, 0, 0.35);
+}
+
+.switcherCorner {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .topOverlay .switchBtnActive {

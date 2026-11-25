@@ -38,9 +38,12 @@ export default function PrivacyPage() {
 						los registren por seguridad y funcionamiento.
 					</li>
 					<li>
-						Preferencias locales del festival, como la lista de juegos guardada
-						en tu navegador (localStorage), que no se envía automáticamente a
-						nuestros servidores.
+						La lista de juegos, guardada solo en tu navegador.
+					</li>
+					<li>
+						El texto de una reseña de demo, si decides publicarla. No pedimos
+						nombre. Quien abra la ficha puede leerla, y desde el mismo navegador
+						puedes editarla o borrarla.
 					</li>
 					<li>
 						Si inicias sesión o usas funciones de cuenta a través de PlayNotes,
@@ -53,7 +56,10 @@ export default function PrivacyPage() {
 			<LegalSection title="3. Finalidades">
 				<ul>
 					<li>Mostrar el festival, catálogo y demos.</li>
-					<li>Recordar tu selección local de juegos del festival.</li>
+					<li>
+						Recordar tu selección local de juegos y mostrar las reseñas de las
+						demos a quien visite la ficha.
+					</li>
 					<li>
 						Permitir, si lo eliges, continuar la experiencia en PlayNotes
 						(wishlist, biblioteca u otras funciones de esa plataforma).
@@ -74,8 +80,9 @@ export default function PrivacyPage() {
 			<LegalSection title="5. Conservación">
 				<p>
 					Los registros técnicos se conservan el tiempo necesario para seguridad
-					y operación. La lista local del festival permanece en tu dispositivo
-					hasta que la borres o limpies el almacenamiento del navegador.
+					y operación. La lista local permanece en tu dispositivo hasta que la
+					borres. La reseña publicada permanece en el festival hasta que la
+					borres desde el mismo navegador.
 				</p>
 			</LegalSection>
 

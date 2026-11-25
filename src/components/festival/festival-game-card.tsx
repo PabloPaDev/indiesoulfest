@@ -6,6 +6,7 @@ import {
 	getYoutubeEmbedUrl,
 	getYoutubeVideoId,
 } from "@/lib/festival-media";
+import { DemoCommentsLink, DemoReview } from "@/components/festival/demo-review";
 import { AddToFestivalListButton } from "@/components/playnotes/festival-list/add-to-festival-list-button";
 import styles from "./festival-game-card.module.css";
 
@@ -406,9 +407,12 @@ export function FestivalGameDialog({
 					) : null}
 
 					<div className={styles.dialogSide}>
-						<h2 id={titleId} className={styles.dialogTitle}>
-							{title}
-						</h2>
+						<div className={styles.dialogTitleRow}>
+							<h2 id={titleId} className={styles.dialogTitle}>
+								{title}
+							</h2>
+							<DemoCommentsLink gameId={game.id} />
+						</div>
 						{studio ? <p className={styles.dialogStudio}>{studio}</p> : null}
 						{game.shortDescription ? (
 							<p className={styles.dialogCopy}>{game.shortDescription}</p>
@@ -445,6 +449,7 @@ export function FestivalGameDialog({
 								activeLabel="✓ En playnotes.es"
 							/>
 						</div>
+						<DemoReview gameId={game.id} />
 					</div>
 				</div>
 			</div>

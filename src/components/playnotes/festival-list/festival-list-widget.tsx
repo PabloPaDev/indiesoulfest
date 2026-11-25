@@ -4,7 +4,12 @@ import { playnotesLexend } from "@/lib/fonts";
 import { useFestivalList } from "./festival-list-context";
 import styles from "./festival-list-widget.module.css";
 
-export function FestivalListWidget() {
+type FestivalListWidgetProps = {
+	/** En el catálogo va en la fila del título, no fijo en el header. */
+	placement?: "overlay" | "inline";
+};
+
+export function FestivalListWidget({ placement = "overlay" }: FestivalListWidgetProps) {
 	const {
 		open,
 		setOpen,
@@ -24,7 +29,7 @@ export function FestivalListWidget() {
 	const count = gameIds.length;
 
 	return (
-		<div className={`${styles.root} ${playnotesLexend.variable} ${playnotesLexend.className}`}>
+		<div className={`${styles.root}${placement === "inline" ? ` ${styles.rootInline}` : ""} ${playnotesLexend.variable} ${playnotesLexend.className}`}>
 			{toast && !open ? (
 				<div className={styles.toast} role="status">
 					{toast.message}

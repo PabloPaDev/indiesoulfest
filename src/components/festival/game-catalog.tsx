@@ -1,11 +1,10 @@
 "use client";
 
-import { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { FestivalGameCard } from "@/components/festival/festival-game-card";
 import {
 	festivalCatalog,
 	getPendingFestivalGames,
-	getPublishedFestivalGames,
 } from "@/data/festivalCatalog";
 import { forPlayPretend } from "@/lib/display-text";
 import type { FestivalGame } from "@/types/festival-game";
@@ -56,12 +55,19 @@ function SearchIcon() {
 }
 
 type GameCatalogProps = {
+	games: FestivalGame[];
 	highlightId?: string;
 	onSelectGame?: (id: string) => void;
+	listAction?: ReactNode;
 };
 
-export function GameCatalog({ highlightId, onSelectGame }: GameCatalogProps) {
-	const published = getPublishedFestivalGames();
+export function GameCatalog({
+	games,
+	highlightId,
+	onSelectGame,
+	listAction,
+}: GameCatalogProps) {
+	const published = games;
 	const pending = getPendingFestivalGames();
 	const [query, setQuery] = useState("");
 	const [filter, setFilter] = useState<CatalogFilter>("all");
@@ -103,6 +109,8 @@ export function GameCatalog({ highlightId, onSelectGame }: GameCatalogProps) {
 				>
 					{forPlayPretend("Catálogo")}
 				</h2>
+				<div className={styles.headingTools}>
+					{listAction}
 				<button
 					type="button"
 					className={`${styles.searchToggle}${searchOpen || query || filter !== "all" ? ` ${styles.searchToggleActive}` : ""}`}
@@ -113,6 +121,7 @@ export function GameCatalog({ highlightId, onSelectGame }: GameCatalogProps) {
 				>
 					<SearchIcon />
 				</button>
+				</div>
 			</div>
 
 			<div

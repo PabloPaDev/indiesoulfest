@@ -17,6 +17,13 @@
 	text-transform: uppercase;
 }
 
+.headingTools {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	flex: none;
+}
+
 .searchToggle {
 	display: inline-flex;
 	align-items: center;

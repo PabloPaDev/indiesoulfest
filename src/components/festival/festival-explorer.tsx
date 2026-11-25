@@ -25,6 +25,8 @@ type FestivalExplorerProps = {
 	onDiscover: (id: string) => void;
 	/** Cabecera de la página, pintada sobre el fondo. */
 	header?: ReactNode;
+	/** Controles de la esquina superior, en el hueco del contador. */
+	toolbar?: ReactNode;
 	/** Flechas del teclado solo mientras el explorador es la vista activa. */
 	keyboardEnabled?: boolean;
 };
@@ -45,6 +47,7 @@ export function FestivalExplorer({
 	onSelect,
 	onDiscover,
 	header,
+	toolbar,
 	keyboardEnabled = true,
 }: FestivalExplorerProps) {
 	const index = Math.max(
@@ -244,27 +247,7 @@ export function FestivalExplorer({
 
 			<div className={styles.topBar}>
 				<div className={styles.header}>{header}</div>
-				<div className={styles.nav}>
-					<p className={styles.kicker}>
-						{index + 1}/{games.length}
-					</p>
-					<button
-						type="button"
-						className={styles.navBtn}
-						aria-label="Juego anterior"
-						onClick={() => go(-1)}
-					>
-						‹
-					</button>
-					<button
-						type="button"
-						className={styles.navBtn}
-						aria-label="Siguiente juego"
-						onClick={() => go(1)}
-					>
-						›
-					</button>
-				</div>
+				{toolbar ? <div className={styles.nav}>{toolbar}</div> : null}
 			</div>
 
 			<div className={styles.shelf}>
