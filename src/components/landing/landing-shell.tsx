@@ -8,8 +8,7 @@ type LandingShellProps = {
 	footer: ReactNode;
 };
 
-/** Capas apiladas: cada sección se queda fija y la siguiente la cubre desde abajo.
- *  El footer va después, debajo de la última sección. */
+/** Secciones en orden: la portada, lo que hay detrás, PlayNotes y el pie. */
 export function LandingShell({ hero, behind, after, footer }: LandingShellProps) {
 	return (
 		<div className={styles.shell}>
@@ -29,7 +28,7 @@ export function LandingShell({ hero, behind, after, footer }: LandingShellProps)
 				className={`${styles.layer} ${styles.coverLayer}`}
 				aria-label="Integración con PlayNotes"
 			>
-				<div className={styles.coverBody}>{after}</div>
+				{after}
 			</section>
 
 			<div className={styles.footerBand}>{footer}</div>

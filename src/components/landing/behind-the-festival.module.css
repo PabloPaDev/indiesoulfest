@@ -60,12 +60,46 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
-	gap: clamp(0px, 0.4vw, 8px);
+	gap: clamp(8px, 1vw, 16px);
 	min-height: clamp(280px, 32vw, 440px);
 	width: min(52%, 560px);
-	pointer-events: none;
-	user-select: none;
 	z-index: 0;
+}
+
+.mascotItem {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	min-width: 0;
+}
+
+.mascotHandle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35em;
+	max-width: 100%;
+	color: inherit;
+	font-family: var(--font-bank), "Arial Narrow", sans-serif;
+	font-size: clamp(12px, 0.95vw, 15px);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	line-height: 1;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.mascotHandle:hover {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.igIcon {
+	width: 1.15em;
+	height: 1.15em;
+	flex: 0 0 auto;
 }
 
 .mascot {
@@ -191,9 +225,18 @@
 		min-height: 0;
 		justify-content: flex-end;
 		align-items: flex-end;
-		gap: 4px;
+		gap: 8px;
 		margin: 4px 0 10px 14px;
 		shape-outside: margin-box;
+	}
+
+	.mascotItem {
+		gap: 3px;
+	}
+
+	.mascotHandle {
+		font-size: 9px;
+		letter-spacing: 0.02em;
 	}
 
 	.mascotBeanie {
@@ -255,7 +298,12 @@
 
 	.mascots {
 		margin: 2px 0 8px 10px;
-		gap: 2px;
+		gap: 6px;
+	}
+
+	.mascotHandle {
+		font-size: 8px;
+		gap: 0.25em;
 	}
 
 	.mascotBeanie {

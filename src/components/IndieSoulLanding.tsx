@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { landingGames } from "../data/landingGames";
 import { forPlayPretend } from "../lib/display-text";
@@ -42,7 +42,7 @@ function screenMatrix(wrapW: number, wrapH: number, w: number, h: number) {
 /** Dibujo de la consola. La pantalla HTML queda alineada con su abertura. */
 function ConsoleBody() {
   return (
-    <img src="/console/handheld-side-open.png" alt="" className={styles.consoleVector} />
+    <img src="/console/handheld-side-open.png" alt="" width={960} height={497} className={styles.consoleVector} />
   );
 }
 
@@ -91,14 +91,16 @@ export default function IndieSoulLanding() {
     };
   }, [active]);
 
-  // La pantalla sigue la perspectiva exacta del hueco del dibujo a cualquier tamaño.
-  useEffect(() => {
+  // La pantalla sigue la perspectiva del hueco. Se aplica antes del primer pintado
+  // para que la imagen no salte al recargar.
+  useLayoutEffect(() => {
     const wrap = consoleRef.current;
     const screen = screenRef.current;
     if (!wrap || !screen) return;
     const fit = () => {
       if (!wrap.offsetWidth || !screen.offsetWidth) return;
       screen.style.transform = screenMatrix(wrap.offsetWidth, wrap.offsetHeight, screen.offsetWidth, screen.offsetHeight);
+      screen.classList.add(styles.screenReady);
     };
     fit();
     const observer = new ResizeObserver(fit);
@@ -244,9 +246,6 @@ export default function IndieSoulLanding() {
                 {landingGames.length > 1 && <>
                   <button aria-label="Juego anterior" className={`${styles.carouselButton} ${styles.carouselPrev}`} onClick={() => advance(-1)}><Arrow direction="left" /></button>
                   <button aria-label="Siguiente juego" className={`${styles.carouselButton} ${styles.carouselNext}`} onClick={() => advance(1)}><Arrow direction="right" /></button>
-                  <p className={styles.slideCount} aria-live="polite">
-                    {active + 1}/{landingGames.length}
-                  </p>
                 </>}
               </div>
             </div>

@@ -1,7 +1,18 @@
 import Image from "next/image";
 import { Reveal } from "@/components/landing/reveal";
+import { siteConfig } from "@/config/site";
 import { forPlayPretend } from "@/lib/display-text";
 import styles from "./behind-the-festival.module.css";
+
+function InstagramMark() {
+	return (
+		<svg className={styles.igIcon} viewBox="0 0 24 24" aria-hidden="true">
+			<rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
+			<circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" strokeWidth="2" />
+			<circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+		</svg>
+	);
+}
 
 const sectionTitle = "DETRÁS DEL FESTIVAL TAMBIÉN HAY PERSONAS.";
 
@@ -48,25 +59,47 @@ export function BehindTheFestival() {
 							<h2 id="behind-title" className={styles.title} aria-label={sectionTitle}>
 								{forPlayPretend(sectionTitle)}
 							</h2>
-							<div className={styles.mascots} aria-hidden="true">
-								<Image
-									src="/mascots/beanie.png"
-									alt=""
-									width={600}
-									height={600}
-									className={`${styles.mascot} ${styles.mascotBeanie}`}
-									sizes="(max-width: 900px) 96px, 380px"
-									priority={false}
-								/>
-								<Image
-									src="/mascots/onion-knight.png"
-									alt=""
-									width={600}
-									height={600}
-									className={`${styles.mascot} ${styles.mascotKnight}`}
-									sizes="(max-width: 900px) 104px, 420px"
-									priority={false}
-								/>
+							<div className={styles.mascots}>
+								<figure className={styles.mascotItem}>
+									<Image
+										src="/mascots/beanie.png"
+										alt=""
+										width={600}
+										height={600}
+										className={`${styles.mascot} ${styles.mascotBeanie}`}
+										sizes="(max-width: 900px) 96px, 380px"
+										priority={false}
+									/>
+									<a
+										className={styles.mascotHandle}
+										href={siteConfig.instagram.carlos.href}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<InstagramMark />
+										<span>{siteConfig.instagram.carlos.label}</span>
+									</a>
+								</figure>
+								<figure className={styles.mascotItem}>
+									<Image
+										src="/mascots/onion-knight.png"
+										alt=""
+										width={600}
+										height={600}
+										className={`${styles.mascot} ${styles.mascotKnight}`}
+										sizes="(max-width: 900px) 104px, 420px"
+										priority={false}
+									/>
+									<a
+										className={styles.mascotHandle}
+										href={siteConfig.instagram.playnotes.href}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<InstagramMark />
+										<span>{siteConfig.instagram.playnotes.label}</span>
+									</a>
+								</figure>
 							</div>
 							<p className={styles.subtitle}>
 								Unimos divulgación, comunidad y tecnología para dar visibilidad a videojuegos que merecen ser descubiertos.

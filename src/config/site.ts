@@ -19,6 +19,16 @@ export const siteConfig = {
 	designer: "edithmt_design",
 	sponsor: "Games 4 Players",
 	contactEmail: "carlosedittv@gmail.com",
+	instagram: {
+		playnotes: {
+			label: "@playnotes_",
+			href: "https://www.instagram.com/playnotes_/",
+		},
+		carlos: {
+			label: "@carlosedit.tv",
+			href: "https://www.instagram.com/carlosedit.tv/",
+		},
+	},
 	dates: {
 		label: "1 - 31 de diciembre",
 		start: "2026-12-01",
