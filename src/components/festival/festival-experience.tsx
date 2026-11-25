@@ -9,7 +9,6 @@ import { FestivalListProvider } from "@/components/playnotes/festival-list/festi
 import { FestivalListWidget } from "@/components/playnotes/festival-list/festival-list-widget";
 import { getPublishedFestivalGames } from "@/data/festivalCatalog";
 import type { FestivalGame } from "@/types/festival-game";
-import { siteConfig } from "@/config/site";
 import { forPlayPretend } from "@/lib/display-text";
 import styles from "./festival-experience.module.css";
 
@@ -80,8 +79,6 @@ export function FestivalExperience() {
 			</h1>
 			<p className={styles.lead}>
 				Un mes para descubrir videojuegos independientes y probar sus demos.
-				La primera edición apuesta por piezas artesanales, hechas sin IA
-				generativa. {siteConfig.motto}
 			</p>
 		</>
 	);
