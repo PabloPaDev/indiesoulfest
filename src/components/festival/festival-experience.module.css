@@ -10,12 +10,17 @@
 	color: #090909;
 }
 
-/* Explorador: viewport fijo, sin scroll ni franja inferior. */
+/* Explorador: viewport fijo, sin scroll ni franja inferior.
+   100vh en Chrome móvil incluye la barra de direcciones y recorta la cabecera. */
 .rootExplorer {
 	display: flex;
 	flex-direction: column;
+	min-height: 100svh;
+	min-height: 100dvh;
 	height: 100svh;
+	height: 100dvh;
 	max-height: 100svh;
+	max-height: 100dvh;
 	overflow: hidden;
 	overscroll-behavior: none;
 	background-color: #121820;
