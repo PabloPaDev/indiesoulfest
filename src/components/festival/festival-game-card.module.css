@@ -47,7 +47,7 @@
 	top: 0;
 	z-index: 7;
 	display: grid;
-	grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+	grid-template-columns: minmax(9.5rem, 0.72fr) minmax(0, 1.28fr);
 	width: min(calc(200% + 0.75rem), calc(100vw - 1.5rem));
 	height: auto;
 	min-height: 100%;
@@ -71,6 +71,20 @@
 	aspect-ratio: auto;
 	height: 100%;
 	min-height: 10rem;
+}
+
+.cardExpandRight .mediaPortrait,
+.cardExpandLeft .mediaPortrait {
+	aspect-ratio: 2 / 3;
+	height: auto;
+	max-height: min(72svh, 28rem);
+	align-self: stretch;
+}
+
+.cardExpandRight .mediaPortrait .cover,
+.cardExpandLeft .mediaPortrait .cover {
+	object-fit: cover;
+	object-position: center top;
 }
 
 .cardExpandRight .body,
@@ -388,6 +402,16 @@
 		aspect-ratio: 460 / 215;
 		height: auto;
 		min-height: 0;
+		max-height: none;
+	}
+
+	.cardExpandRight .mediaPortrait,
+	.cardExpandLeft .mediaPortrait {
+		aspect-ratio: 2 / 3;
+		width: min(100%, 18rem);
+		margin-inline: auto;
+		border-right: 0;
+		border-bottom: 3px solid var(--color-ink);
 	}
 
 	.cardExpandRight .body,

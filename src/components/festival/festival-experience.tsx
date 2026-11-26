@@ -124,7 +124,7 @@ export function FestivalExperience() {
 				<a className="skip-link" href="#festival">
 					Saltar al contenido
 				</a>
-				<FestivalHeader reserveList={view === "explorer"} />
+				<FestivalHeader />
 				<main id="festival" className={view === "explorer" ? styles.mainExplorer : undefined}>
 					{view === "explorer" ? (
 						<FestivalExplorer
@@ -138,7 +138,12 @@ export function FestivalExperience() {
 									{intro}
 								</div>
 							}
-							toolbar={<div className={styles.topOverlay}>{switcher}</div>}
+							toolbar={
+								<div className={`${styles.topOverlay} ${styles.toolbarStack}`}>
+									{switcher}
+									<FestivalListWidget placement="toolbar" />
+								</div>
+							}
 						/>
 					) : (
 						<>
@@ -166,8 +171,6 @@ export function FestivalExperience() {
 						onClose={() => setDetailId(null)}
 					/>
 				) : null}
-
-				{view === "explorer" ? <FestivalListWidget /> : null}
 			</div>
 		</FestivalListProvider>
 	);

@@ -5,8 +5,12 @@ import { useFestivalList } from "./festival-list-context";
 import styles from "./festival-list-widget.module.css";
 
 type FestivalListWidgetProps = {
-	/** En el catálogo va en la fila del título, no fijo en el header. */
-	placement?: "overlay" | "inline";
+	/**
+	 * overlay: flotante (legado).
+	 * inline: en la barra del catálogo.
+	 * toolbar: debajo de Explorador/Catálogo, solo logo + contador.
+	 */
+	placement?: "overlay" | "inline" | "toolbar";
 };
 
 export function FestivalListWidget({ placement = "overlay" }: FestivalListWidgetProps) {
@@ -27,9 +31,15 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 	} = useFestivalList();
 
 	const count = gameIds.length;
+	const rootClass =
+		placement === "inline"
+			? styles.rootInline
+			: placement === "toolbar"
+				? styles.rootToolbar
+				: "";
 
 	return (
-		<div className={`${styles.root}${placement === "inline" ? ` ${styles.rootInline}` : ""} ${playnotesLexend.variable} ${playnotesLexend.className}`}>
+		<div className={`${styles.root}${rootClass ? ` ${rootClass}` : ""} ${playnotesLexend.variable} ${playnotesLexend.className}`}>
 			{toast && !open ? (
 				<div className={styles.toast} role="status">
 					{toast.message}

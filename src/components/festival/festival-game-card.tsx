@@ -3,6 +3,8 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { FestivalGame } from "@/types/festival-game";
 import {
+	getFestivalCoverUrl,
+	getFestivalPortraitUrl,
 	getYoutubeEmbedUrl,
 	getYoutubeVideoId,
 } from "@/lib/festival-media";
@@ -23,6 +25,10 @@ export function FestivalGameCard({ game }: FestivalGameCardProps) {
 	const slotRef = useRef<HTMLDivElement>(null);
 	const title = game.title ?? "Sin título";
 	const studio = game.studio ?? "Estudio por confirmar";
+	const portrait = getFestivalPortraitUrl(game);
+	const cover = getFestivalCoverUrl(game);
+	const mediaSrc = expanded ? (portrait ?? cover) : cover;
+	const mediaPortrait = Boolean(expanded && portrait);
 
 	useEffect(() => {
 		setExpanded(false);
@@ -94,19 +100,19 @@ export function FestivalGameCard({ game }: FestivalGameCardProps) {
 				>
 					<button
 						type="button"
-						className={styles.media}
+						className={`${styles.media}${mediaPortrait ? ` ${styles.mediaPortrait}` : ""}`}
 						onClick={() => setOpen(true)}
 						aria-label={`Descubrir ${title}`}
 					>
-						{game.coverImage ? (
+						{mediaSrc ? (
 							<img
 								className={styles.cover}
-								src={game.coverImage}
+								src={mediaSrc}
 								alt=""
 								loading="lazy"
 								decoding="async"
-								width={460}
-								height={215}
+								width={mediaPortrait ? 600 : 460}
+								height={mediaPortrait ? 900 : 215}
 							/>
 						) : (
 							<div className={styles.cover} aria-hidden />

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { HeroCollaborators } from "@/components/landing/hero-collaborators";
 import { landingGames } from "../data/landingGames";
 import { forPlayPretend } from "../lib/display-text";
 import styles from "./IndieSoulLanding.module.css";
@@ -292,11 +293,7 @@ export default function IndieSoulLanding() {
                 </div>
               </aside>
               <footer className={styles.footer}>
-                <span>{landingGames.length} JUEGOS <span className={styles.footerSlash}>/</span> SIN IA GENERATIVA</span>
-                <span className={styles.footerSponsor}>
-                  <span className={styles.footerDivider} aria-hidden="true" />
-                  <span>PATROCINADO POR: <strong>GAMES 4 PLAYERS</strong></span>
-                </span>
+                <HeroCollaborators gamesCount={landingGames.length} />
               </footer>
             </div>
           </section>

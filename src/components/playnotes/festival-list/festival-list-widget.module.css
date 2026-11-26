@@ -10,10 +10,12 @@
 	--pn-shadow: 0 18px 50px rgba(24, 24, 27, 0.22);
 	--pn-radius: 1.1rem;
 	--pn-safe-right: max(1.15rem, env(safe-area-inset-right, 0px));
+	--pn-safe-top: max(0.7rem, env(safe-area-inset-top, 0px));
 	--pn-safe-bottom: max(1.15rem, env(safe-area-inset-bottom, 0px));
 	position: fixed;
+	top: var(--pn-safe-top);
 	right: var(--pn-safe-right);
-	bottom: var(--pn-safe-bottom);
+	bottom: auto;
 	z-index: 85;
 	font-family: var(--font-playnotes), system-ui, sans-serif;
 	color: var(--pn-ink);
@@ -30,7 +32,8 @@
 	pointer-events: auto;
 }
 
-.rootInline {
+.rootInline,
+.rootToolbar {
 	position: relative;
 	top: auto;
 	right: auto;
@@ -38,6 +41,16 @@
 	left: auto;
 	z-index: 30;
 	padding: 0;
+	pointer-events: none;
+}
+
+.rootInline .fab,
+.rootInline .panel,
+.rootInline .toast,
+.rootToolbar .fab,
+.rootToolbar .panel,
+.rootToolbar .toast {
+	pointer-events: auto;
 }
 
 .rootInline .panel {
@@ -51,18 +64,45 @@
 	transform-origin: bottom center;
 }
 
-.rootInline .fab {
+.rootInline .fab,
+.rootToolbar .fab {
 	margin: 0;
 	padding: 0.2rem;
+	gap: 0;
 }
 
-.rootInline .fabCopy {
+.rootInline .fabCopy,
+.rootToolbar .fabCopy {
 	display: none;
 }
 
-.rootInline .fabIcon {
+.rootInline .fabIcon,
+.rootToolbar .fabIcon {
 	width: 2.15rem;
 	height: 2.15rem;
+}
+
+.rootToolbar .panel {
+	top: calc(100% + 0.55rem);
+	right: 0;
+	bottom: auto;
+	transform-origin: top right;
+}
+
+.rootToolbar .toast,
+.rootToolbar .toastWithPanel {
+	top: calc(100% + 0.55rem);
+	right: 0;
+	bottom: auto;
+}
+
+.rootToolbar .fabCount {
+	top: -0.15rem;
+	right: -0.15rem;
+	min-width: 1.15rem;
+	height: 1.15rem;
+	line-height: 1.15rem;
+	font-size: 0.68rem;
 }
 
 .fab {
@@ -160,8 +200,9 @@
 
 .panel {
 	position: absolute;
+	top: calc(100% + 0.7rem);
 	right: 0;
-	bottom: calc(100% + 0.7rem);
+	bottom: auto;
 	display: flex;
 	flex-direction: column;
 	width: min(22.5rem, calc(100vw - 2rem));
@@ -171,7 +212,7 @@
 	border-radius: var(--pn-radius);
 	background: var(--pn-paper-soft);
 	box-shadow: var(--pn-shadow);
-	transform-origin: bottom right;
+	transform-origin: top right;
 	animation: pnOpen 220ms ease;
 }
 
@@ -394,8 +435,9 @@
 
 .toast {
 	position: absolute;
+	top: calc(100% + 0.7rem);
 	right: 0;
-	bottom: calc(100% + 0.7rem);
+	bottom: auto;
 	max-width: min(18rem, calc(100vw - 2rem));
 	padding: 0.65rem 0.8rem;
 	border-radius: 0.85rem;
@@ -409,13 +451,14 @@
 }
 
 .toastWithPanel {
-	bottom: calc(100% + min(34rem, calc(100svh - 7.5rem)) + 1.4rem);
+	top: calc(100% + min(34rem, calc(100svh - 7.5rem)) + 1.4rem);
+	bottom: auto;
 }
 
 @keyframes pnOpen {
 	from {
 		opacity: 0;
-		transform: translateY(8px) scale(0.98);
+		transform: translateY(-8px) scale(0.98);
 	}
 	to {
 		opacity: 1;
@@ -449,7 +492,7 @@
 @keyframes pnToast {
 	from {
 		opacity: 0;
-		transform: translateY(6px);
+		transform: translateY(-6px);
 	}
 	to {
 		opacity: 1;
@@ -468,7 +511,8 @@
 		padding: 0;
 	}
 
-	.rootInline {
+	.rootInline,
+	.rootToolbar {
 		position: relative;
 		top: auto;
 		right: auto;
@@ -476,7 +520,8 @@
 		left: auto;
 	}
 
-	.panel {
+	.rootInline .panel,
+	.rootToolbar .panel {
 		position: fixed;
 		inset: auto 0 0;
 		width: 100%;
@@ -484,11 +529,14 @@
 		border-radius: 1.15rem 1.15rem 0 0;
 		bottom: 0;
 		right: 0;
+		top: auto;
 		animation: pnSheet 240ms ease;
 	}
 
 	/* En móvil: FAB compacto (icono + badge) para no tapar acciones. */
-	.fab {
+	.fab,
+	.rootInline .fab,
+	.rootToolbar .fab {
 		margin-bottom: 0;
 		padding: 0.16rem;
 		gap: 0;
@@ -496,16 +544,22 @@
 		box-shadow: 0 0 0 2px rgba(251, 146, 60, 0.16);
 	}
 
-	.fabCopy {
+	.fabCopy,
+	.rootInline .fabCopy,
+	.rootToolbar .fabCopy {
 		display: none;
 	}
 
-	.fabIcon {
+	.fabIcon,
+	.rootInline .fabIcon,
+	.rootToolbar .fabIcon {
 		width: 1.85rem;
 		height: 1.85rem;
 	}
 
-	.fabCount {
+	.fabCount,
+	.rootInline .fabCount,
+	.rootToolbar .fabCount {
 		top: -0.05rem;
 		right: -0.05rem;
 		min-width: 1.05rem;
@@ -515,11 +569,14 @@
 	}
 
 	.toast,
-	.toastWithPanel {
+	.toastWithPanel,
+	.rootToolbar .toast,
+	.rootToolbar .toastWithPanel {
 		position: fixed;
 		left: 1rem;
 		right: 1rem;
 		bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+		top: auto;
 		max-width: none;
 	}
 }

@@ -8,7 +8,9 @@
 		.reveal {
 			animation: isf-reveal linear both;
 			animation-timeline: view();
-			animation-range: cover 0% cover 42%;
+			/* Termina al entrar: si el rango llega hasta cover alto,
+			   el pie no completa el scroll y se queda semitransparente. */
+			animation-range: entry 0% entry 45%;
 		}
 	}
 }

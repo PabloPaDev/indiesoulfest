@@ -296,20 +296,13 @@
 	min-width: min(100%, 280px);
 	margin: 0;
 	border-top: 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 20px;
+	display: block;
 	padding: 0;
-	font-size: clamp(16px, 1.55vw, 22px);
+	font-size: clamp(14px, 1.35vw, 20px);
 	font-weight: 400;
-	letter-spacing: .14em;
+	letter-spacing: .12em;
 	order: 1;
 }
-.footerSlash { margin-inline: 1.6em; }
-.footerSponsor { display: flex; align-items: center; gap: 2.6em; }
-.footerSponsor strong { font-weight: 700; }
-.footerDivider { display: block; width: 2px; height: 1.35em; background: var(--ink); }
 .scrollCue {
 	position: absolute;
 	left: 50%;
@@ -427,23 +420,14 @@
 	.footer {
 		order: 1;
 		float: none;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		justify-content: flex-start;
+		display: block;
 		width: 100%;
 		margin: 0;
 		padding: 0;
-		gap: 4px 1.1em;
 		font-size: 13px;
 		letter-spacing: 0.08em;
 		line-height: 1.4;
 		text-align: left;
-	}
-	.footerSponsor {
-		display: inline-flex;
-		margin-top: 0;
-		gap: 0.7em;
 	}
 	.playnocito {
 		order: 2;
@@ -459,9 +443,6 @@
 		shape-outside: none;
 	}
 	.playnocitoImg { width: 84px; }
-	.footerDivider {
-		display: none;
-	}
 	.scrollCue {
 		position: absolute;
 		left: 50%;
@@ -643,27 +624,14 @@
 	.footer {
 		order: 1;
 		float: none;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
+		display: block;
 		width: 100%;
 		margin: 0;
 		padding: 0;
-		gap: 4px 0.8em;
 		font-size: 11px;
 		letter-spacing: 0.06em;
 		line-height: 1.4;
 		text-align: left;
-	}
-	.footer > span {
-		display: inline;
-	}
-	.footerSlash { margin-inline: 0.45em; }
-	.footerDivider { display: none; }
-	.footerSponsor {
-		display: inline-flex;
-		margin-top: 0;
-		gap: 0.6em;
 	}
 	.scrollCue {
 		bottom: 10px;
@@ -908,23 +876,11 @@
 		order: 0;
 		width: 100%;
 		max-width: none;
-		display: flex;
-		flex-wrap: nowrap;
-		justify-content: space-between;
-		align-items: center;
-		gap: clamp(16px, 3vw, 48px);
+		display: block;
 		margin: -8px 0 0;
 		padding-top: 0;
-		font-size: clamp(15px, 1.5vw, 22px);
-		letter-spacing: 0.12em;
-	}
-
-	.footerSlash {
-		margin-inline: 0.8em;
-	}
-
-	.footerSponsor {
-		gap: 1.2em;
+		font-size: clamp(13px, 1.25vw, 18px);
+		letter-spacing: 0.1em;
 	}
 
 	.scrollCue {
