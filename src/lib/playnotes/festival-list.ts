@@ -26,9 +26,15 @@ export function syncStatusLabel(status: SyncStatus): string {
 	}
 }
 
-export function getPlaynotesProfileUrl(username: string | null): string {
-	if (username) {
-		return `${siteConfig.playnotesUrl}/u/${encodeURIComponent(username)}`;
-	}
-	return siteConfig.playnotesUrl;
+/** Lista de Indie Soul Fest de esa cuenta en PlayNotes. */
+export function getPlaynotesListUrl(listId: string): string {
+	return `${siteConfig.playnotesUrl}/app/list/${encodeURIComponent(listId)}`;
+}
+
+export function readPlaynotesListId(
+	data: { list?: { id?: string | null } | null } | null | undefined,
+): string | null {
+	const id = data?.list?.id;
+	if (typeof id !== "string" || id.length === 0) return null;
+	return id;
 }
