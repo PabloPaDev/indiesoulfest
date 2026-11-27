@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FestivalNotOpenDialog } from "@/components/festival/festival-not-open";
 import { HeroCollaborators } from "@/components/landing/hero-collaborators";
 import { landingGames } from "../data/landingGames";
 import { forPlayPretend } from "../lib/display-text";
+import { isFestivalOpen } from "../lib/festival-opening";
 import styles from "./IndieSoulLanding.module.css";
 
 function Arrow({ direction }: { direction: "left" | "right" }) {
@@ -52,6 +54,7 @@ export default function IndieSoulLanding() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [entering, setEntering] = useState(false);
+  const [notOpen, setNotOpen] = useState(false);
   const pageRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const consoleRef = useRef<HTMLDivElement>(null);
@@ -130,6 +133,10 @@ export default function IndieSoulLanding() {
 
   const enterFestival = () => {
     if (enteringRef.current) return;
+    if (!isFestivalOpen()) {
+      setNotOpen(true);
+      return;
+    }
     enteringRef.current = true;
     setEntering(true);
 
@@ -299,6 +306,8 @@ export default function IndieSoulLanding() {
           </section>
         </main>
       </div>
+
+      {notOpen ? <FestivalNotOpenDialog onClose={() => setNotOpen(false)} /> : null}
 
       <a href="#behind-title" className={styles.scrollCue}>
         <span className={styles.scrollCueLabel}>DESCUBRE QUIÉN Y POR QUÉ SE HACE</span>
