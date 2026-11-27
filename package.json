@@ -5,15 +5,18 @@
 	"scripts": {
 		"dev": "next dev",
 		"dev:catalog": "next dev --port 3001",
+		"dev:isf": "next dev --hostname 127.0.0.1 --port 4310",
 		"build": "next build --webpack",
 		"start": "next start",
-		"lint": "eslint"
+		"lint": "eslint",
+		"test": "tsx --test src/lib/playnotes/**/*.test.ts"
 	},
   "dependencies": {
     "motion": "^14.14.0",
     "next": "16.4.6",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",
@@ -23,6 +26,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

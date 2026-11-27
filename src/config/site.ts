@@ -10,9 +10,9 @@ export const siteConfig = {
 		"Festival digital de videojuegos independientes. Del 1 al 31 de diciembre de 2026. Demos artesanales, sin IA generativa. Organizado por PlayNotes y CarlosEdit.tv.",
 	/** Landing promocional (apex / marketing). */
 	publicDomain: "indiesoulfest.com",
-	/** Catálogo interactivo (misma cookie Auth que PlayNotes). */
-	catalogDomain: "indiesoulfest.playnotes.es",
-	catalogOrigin: "https://indiesoulfest.playnotes.es",
+	/** Catálogo interactivo del festival (BFF OAuth en este dominio). */
+	catalogDomain: "indiesoulfest.com",
+	catalogOrigin: "https://indiesoulfest.com",
 	playnotesUrl: "https://www.playnotes.es",
 	playnotesApiOrigin: "https://www.playnotes.es",
 	organizers: "CarlosEdit.tv y PlayNotes",
@@ -65,7 +65,7 @@ export function getPlaynotesApiOrigin(): string {
 export function getCatalogOrigin(): string {
 	const fromEnv = process.env.NEXT_PUBLIC_CATALOG_ORIGIN?.trim().replace(/\/$/, "");
 	if (fromEnv) return fromEnv;
-	if (process.env.NODE_ENV === "development") return "http://localhost:3001";
+	if (process.env.NODE_ENV === "development") return "http://127.0.0.1:4310";
 	return siteConfig.catalogOrigin;
 }
 

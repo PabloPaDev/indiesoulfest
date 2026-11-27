@@ -7,6 +7,7 @@ import { GameCatalog } from "@/components/festival/game-catalog";
 import { FestivalGameDialog } from "@/components/festival/festival-game-card";
 import { FestivalListProvider } from "@/components/playnotes/festival-list/festival-list-context";
 import { FestivalListWidget } from "@/components/playnotes/festival-list/festival-list-widget";
+import { FestivalWelcomeModal } from "@/components/playnotes/festival-welcome-modal";
 import { getPublishedFestivalGames } from "@/data/festivalCatalog";
 import type { FestivalGame } from "@/types/festival-game";
 import { forPlayPretend } from "@/lib/display-text";
@@ -118,6 +119,7 @@ export function FestivalExperience() {
 
 	return (
 		<FestivalListProvider games={games} onOpenGame={setDetailId}>
+			<FestivalWelcomeModal />
 			<div
 				className={`${styles.rootGrid}${view === "explorer" ? ` ${styles.rootExplorer}` : ""}`}
 			>

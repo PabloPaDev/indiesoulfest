@@ -1,6 +1,7 @@
 "use client";
 
 import { playnotesLexend } from "@/lib/fonts";
+import { siteConfig } from "@/config/site";
 import { useFestivalList } from "./festival-list-context";
 import styles from "./festival-list-widget.module.css";
 
@@ -24,10 +25,14 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 		remove,
 		openGame,
 		toast,
-		syncMessage,
-		syncBusy,
+		syncStatus,
+		syncStatusLabel,
 		listName,
-		saveToPlaynotes,
+		authenticated,
+		user,
+		connectToPlaynotes,
+		disconnectPlaynotes,
+		profileUrl,
 	} = useFestivalList();
 
 	const count = gameIds.length;
@@ -134,19 +139,52 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 					)}
 
 					<footer className={styles.footer}>
-						<button
-							type="button"
-							className={styles.primary}
-							disabled={syncBusy || count === 0}
-							onClick={() => void saveToPlaynotes()}
+						<p
+							className={`${styles.status}${
+								syncStatus === "pending" || syncStatus === "offline"
+									? ` ${styles.statusPending}`
+									: ""
+							}`}
+							role="status"
 						>
-							{syncBusy
-								? "Conectando con PlayNotes…"
-								: `Guardar «${listName}»`}
-						</button>
-						<p className={styles.status}>
-							{syncMessage ??
-								"Selección temporal en este navegador. Aún no está guardada en tu cuenta de PlayNotes."}
+							{syncStatusLabel}
+						</p>
+
+						{authenticated ? (
+							<div className={styles.accountRow}>
+								<div className={styles.accountCopy}>
+									<p className={styles.accountUser}>
+										{user?.username ? `@${user.username}` : "Cuenta PlayNotes"}
+									</p>
+									<a
+										className={styles.accountLink}
+										href={profileUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Abrir en PlayNotes
+									</a>
+								</div>
+								<button
+									type="button"
+									className={styles.ghost}
+									onClick={() => void disconnectPlaynotes()}
+								>
+									Desconectar
+								</button>
+							</div>
+						) : (
+							<button
+								type="button"
+								className={styles.linkish}
+								onClick={connectToPlaynotes}
+							>
+								Vincular cuenta de PlayNotes
+							</button>
+						)}
+
+						<p className={styles.listHint}>
+							Lista «{listName}» · {siteConfig.playnotesUrl.replace(/^https?:\/\//, "")}
 						</p>
 					</footer>
 				</section>
@@ -180,7 +218,13 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 				<span className={styles.fabCopy}>
 					<span className={styles.fabLabel}>Mi lista</span>
 					<span className={styles.fabSub}>
-						{count > 0 ? `${count} en PlayNotes` : "PlayNotes"}
+						{authenticated
+							? count > 0
+								? `${count} sincronizados`
+								: "PlayNotes"
+							: count > 0
+								? `${count} en este dispositivo`
+								: "PlayNotes"}
 					</span>
 				</span>
 				{count > 0 ? (
