@@ -9,7 +9,7 @@
 		"build": "next build --webpack",
 		"start": "next start",
 		"lint": "eslint",
-		"test": "tsx --test src/lib/playnotes/**/*.test.ts"
+		"test": "tsx --test src/lib/playnotes/*.test.ts src/lib/playnotes/**/*.test.ts"
 	},
   "dependencies": {
     "motion": "^14.14.0",

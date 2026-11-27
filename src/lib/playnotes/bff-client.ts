@@ -159,7 +159,12 @@ export async function importRemoteFestivalList(
 export async function addRemoteFestivalGame(
 	csrfToken: string,
 	params: { gameId?: string; igdbId?: number },
-): Promise<{ ok: boolean; status: number; error?: string }> {
+): Promise<{
+	ok: boolean;
+	status: number;
+	data?: RemoteListPayload;
+	error?: string;
+}> {
 	try {
 		const res = await fetch("/api/playnotes/list/games", {
 			method: "POST",
@@ -175,11 +180,11 @@ export async function addRemoteFestivalGame(
 					: { igdb_id: params.igdbId },
 			),
 		});
+		const data = await parseJson<RemoteListPayload & { error?: string }>(res);
 		if (!res.ok) {
-			const data = await parseJson<{ error?: string }>(res);
 			return { ok: false, status: res.status, error: data.error };
 		}
-		return { ok: true, status: res.status };
+		return { ok: true, status: res.status, data };
 	} catch {
 		return { ok: false, status: 0, error: "network" };
 	}
@@ -188,7 +193,12 @@ export async function addRemoteFestivalGame(
 export async function removeRemoteFestivalGame(
 	csrfToken: string,
 	params: { gameId?: string; igdbId?: number },
-): Promise<{ ok: boolean; status: number; error?: string }> {
+): Promise<{
+	ok: boolean;
+	status: number;
+	data?: RemoteListPayload;
+	error?: string;
+}> {
 	try {
 		const res = await fetch("/api/playnotes/list/games", {
 			method: "DELETE",
@@ -204,11 +214,11 @@ export async function removeRemoteFestivalGame(
 					: { igdb_id: params.igdbId },
 			),
 		});
+		const data = await parseJson<RemoteListPayload & { error?: string }>(res);
 		if (!res.ok) {
-			const data = await parseJson<{ error?: string }>(res);
 			return { ok: false, status: res.status, error: data.error };
 		}
-		return { ok: true, status: res.status };
+		return { ok: true, status: res.status, data };
 	} catch {
 		return { ok: false, status: 0, error: "network" };
 	}
