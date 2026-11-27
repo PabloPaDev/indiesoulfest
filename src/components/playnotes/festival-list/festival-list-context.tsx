@@ -13,7 +13,8 @@ import {
 import type { FestivalGame } from "@/types/festival-game";
 import {
 	FESTIVAL_LIST_NAME,
-	getPlaynotesProfileUrl,
+	getPlaynotesListUrl,
+	readPlaynotesListId,
 	syncStatusLabel,
 	type SyncStatus,
 } from "@/lib/playnotes/festival-list";
@@ -70,7 +71,7 @@ type FestivalListContextValue = {
 	ready: boolean;
 	connectToPlaynotes: () => void;
 	disconnectPlaynotes: () => Promise<void>;
-	profileUrl: string;
+	listUrl: string | null;
 	openGame: (id: string) => void;
 };
 
@@ -108,6 +109,7 @@ export function FestivalListProvider({
 	const [user, setUser] = useState<PlaynotesAuthUser | null>(null);
 	const [csrfToken, setCsrfToken] = useState<string | null>(null);
 	const [syncStatus, setSyncStatus] = useState<SyncStatus>("guest");
+	const [remoteListId, setRemoteListId] = useState<string | null>(null);
 	const syncLock = useRef(false);
 
 	const catalogById = useMemo(() => {
@@ -115,6 +117,14 @@ export function FestivalListProvider({
 		for (const game of games) map.set(game.id, game);
 		return map;
 	}, [games]);
+
+	const noteRemoteList = useCallback(
+		(data: { list?: { id?: string | null } | null } | null | undefined) => {
+			const id = readPlaynotesListId(data);
+			if (id) setRemoteListId(id);
+		},
+		[],
+	);
 
 	const showToast = useCallback((message: string) => {
 		setToastSeq((n) => {
@@ -204,6 +214,7 @@ export function FestivalListProvider({
 							setGameIds(persistLocal(merged, sessionUser.id));
 							return;
 						}
+						noteRemoteList(imported.data);
 					}
 					markGuestListImported(sessionUser.id);
 				}
@@ -217,6 +228,7 @@ export function FestivalListProvider({
 					return;
 				}
 
+				noteRemoteList(remote.data);
 				const remoteIds = mapRemoteToLocal(remote.data.games);
 				const next = mergeGameIds(
 					remoteIds,
@@ -231,7 +243,7 @@ export function FestivalListProvider({
 				syncLock.current = false;
 			}
 		},
-		[catalogById, flushPending, mapRemoteToLocal, persistLocal],
+		[catalogById, flushPending, mapRemoteToLocal, noteRemoteList, persistLocal],
 	);
 
 	useEffect(() => {
@@ -303,6 +315,7 @@ export function FestivalListProvider({
 			const params = remoteParamsForGame(game);
 			if (!params) return;
 			const result = await addRemoteFestivalGame(csrfToken, params);
+			if (result.ok) noteRemoteList(result.data);
 			if (!result.ok) {
 				enqueuePendingOp(user.id, {
 					type: "add",
@@ -317,7 +330,7 @@ export function FestivalListProvider({
 				readPendingOps(user.id).length > 0 ? "pending" : "synced",
 			);
 		},
-		[authenticated, csrfToken, user],
+		[authenticated, csrfToken, noteRemoteList, user],
 	);
 
 	const syncRemove = useCallback(
@@ -326,6 +339,7 @@ export function FestivalListProvider({
 			const params = remoteParamsForGame(game);
 			if (!params) return;
 			const result = await removeRemoteFestivalGame(csrfToken, params);
+			if (result.ok) noteRemoteList(result.data);
 			if (!result.ok) {
 				enqueuePendingOp(user.id, {
 					type: "remove",
@@ -340,7 +354,7 @@ export function FestivalListProvider({
 				readPendingOps(user.id).length > 0 ? "pending" : "synced",
 			);
 		},
-		[authenticated, csrfToken, user],
+		[authenticated, csrfToken, noteRemoteList, user],
 	);
 
 	const add = useCallback(
@@ -394,6 +408,7 @@ export function FestivalListProvider({
 		setAuthenticated(false);
 		setUser(null);
 		setCsrfToken(null);
+		setRemoteListId(null);
 		const guest = readFestivalListLocal(null);
 		setGameIds(guest.gameIds.filter((id) => catalogById.has(id)));
 		setSyncStatus("guest");
@@ -421,7 +436,7 @@ export function FestivalListProvider({
 			ready,
 			connectToPlaynotes,
 			disconnectPlaynotes,
-			profileUrl: getPlaynotesProfileUrl(user?.username ?? null),
+			listUrl: remoteListId ? getPlaynotesListUrl(remoteListId) : null,
 			openGame: onOpenGame,
 		}),
 		[
@@ -440,6 +455,7 @@ export function FestivalListProvider({
 			ready,
 			connectToPlaynotes,
 			disconnectPlaynotes,
+			remoteListId,
 			onOpenGame,
 		],
 	);

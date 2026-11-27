@@ -32,7 +32,7 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 		user,
 		connectToPlaynotes,
 		disconnectPlaynotes,
-		profileUrl,
+		listUrl,
 	} = useFestivalList();
 
 	const count = gameIds.length;
@@ -156,14 +156,16 @@ export function FestivalListWidget({ placement = "overlay" }: FestivalListWidget
 									<p className={styles.accountUser}>
 										{user?.username ? `@${user.username}` : "Cuenta PlayNotes"}
 									</p>
-									<a
-										className={styles.accountLink}
-										href={profileUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Abrir en PlayNotes
-									</a>
+									{listUrl ? (
+										<a
+											className={styles.accountLink}
+											href={listUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Abrir en PlayNotes
+										</a>
+									) : null}
 								</div>
 								<button
 									type="button"
